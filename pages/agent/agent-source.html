@@ -1,0 +1,167 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>人人售电-掌上电力交易平台</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <link rel="stylesheet" href="../../assets/css/weuix.min.css">
+    <link rel="stylesheet" href="../../assets/css/common.css">
+    <script src="../../assets/js/zepto.min.js"></script>
+    <script src="../../assets/js/lib/picker.js"></script>
+    <script src="../../assets/js/lib/select.js"></script>
+    <script src="../../assets/js/lib/picker-city.js"></script>
+    <style>
+    /*状态标签*/
+
+    @font-face {
+        font-family: 'OptimusPrinceps';
+        src: url('../../assets/fonts/OptimusPrinceps.ttf');
+        src: local('font/OptimusPrinceps.ttf'), local('font/OptimusPrinceps.ttf'), url('../../assets/fonts/OptimusPrinceps.ttf') format('woff'), url('../../assets/fonts/OptimusPrinceps.ttf') format('truetype'), url('../../assets/fonts/OptimusPrinceps.ttf') format('svg');
+    }
+
+    .f-number {
+        font-family: OptimusPrinceps;
+        font-style: italic;
+    }
+    /*解决模拟select层级不够*/
+
+    .weui-picker-overlay,
+    .weui-picker-container {
+        z-index: 2;
+    }
+    /*自动排序*/
+
+    .order {
+        color: gray;
+    }
+
+    .f-black {
+        color: black;
+    }
+
+    .order .icon {
+        display: inline-block;
+    }
+
+    .xz180 {
+        transform-origin: center center;
+        transform: rotate(180deg);
+        -webkit-transform: rotate(180deg);
+        -moz-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+        -o-transform: rotate(180deg);
+        transition: transform 0.5s;
+        -moz-transition: -moz-transform 0.5s;
+        -moz-transition: -moz-transform 0.5s;
+        -o-transition: -o-transform 0.5s;
+        -ms-transition: -ms-transform 0.5s;
+    }
+
+    .xz0 {
+        transform-origin: center center;
+        transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transition: transform 0.5s;
+        -moz-transition: -moz-transform 0.5s;
+        -moz-transition: -moz-transform 0.5s;
+        -o-transition: -o-transform 0.5s;
+        -ms-transition: -ms-transform 0.5s;
+    }
+    </style>
+</head>
+
+<body ontouchstart style="background-color: #f8f8f8;">
+    <div class="weui_btn_primary weui-header ">
+        <div class="weui-header-left">
+            <a class="icon icon-109 f-white" href="javascript:history.back();"></a>
+        </div>
+        <h1 class="weui-header-title">经纪人客户资源</h1>
+    </div>
+    <div class="weui_search_bar">
+        <input type="search" class="search-input" id='powerLevel' placeholder='选择电量范围' readonly style="box-sizing:content-box;outline: none" />
+        <button class="weui_btn weui_btn_mini weui_btn_primary"><i class="icon icon-4"></i></button>
+    </div>
+    <div class="flex-col tcenter bg-white f14" style="height: 40px;line-height: 40px;">
+        <div class="flex-item-4 order f-black"><span class="m-r5">购电量</span><span class="icon icon-35"></span></div>
+        <div class="flex-item-4 order weui-border-l"><span class="m-r5">发布时间</span><span class="icon icon-35"></span></div>
+        <div class="flex-item-4 order weui-border-l"><span class="m-r5"><input class="weui_input tcenter" placeholder="江西南昌" type="text" id="ss" name=""></span></div>
+    </div>
+    <!-- 最新购电客户资源 -->
+    <div class="weui_panel weui_panel_access">
+        <div class="weui_panel_bd">
+            <a href="../deals/publish-view.html" class="weui_media_box weui_media_appmsg">
+                <div class="weui_media_hd">
+                    <img class="weui_media_appmsg_thumb list-img img-radius" src="../../assets/images/avatar/avatar7.jpg" alt="">
+                </div>
+                <div class="weui_media_bd">
+                    <h4 class="weui_media_title">预计购电量：<span class="f-red f-number">1200,00kwh</span></h4>
+                    <p class="weui_media_desc">人脉：恒大物业</p>
+                    <p class="weui_media_desc m-t5">经纪人：张丽<span class="right">2017-05-12</span></p>
+                </div>
+            </a>
+            <a href="../deals/publish-view.html" class="weui_media_box weui_media_appmsg">
+                <div class="weui_media_hd">
+                    <img class="weui_media_appmsg_thumb list-img img-radius" src="../../assets/images/avatar/avatar7.jpg" alt="">
+                </div>
+                <div class="weui_media_bd">
+                    <h4 class="weui_media_title">预计购电量：<span class="f-red f-number">1200,00kwh</span></h4>
+                    <p class="weui_media_desc">人脉：恒大物业</p>
+                    <p class="weui_media_desc m-t5">经纪人：张丽<span class="right">2017-05-12</span></p>
+                </div>
+            </a>
+            <a href="../deals/publish-view.html" class="weui_media_box weui_media_appmsg">
+                <div class="weui_media_hd">
+                    <img class="weui_media_appmsg_thumb list-img img-radius" src="../../assets/images/avatar/avatar7.jpg" alt="">
+                </div>
+                <div class="weui_media_bd">
+                    <h4 class="weui_media_title">预计购电量：<span class="f-red f-number">1200,00kwh</span></h4>
+                    <p class="weui_media_desc">人脉：恒大物业</p>
+                    <p class="weui_media_desc m-t5">经纪人：张丽<span class="right">2017-05-12</span></p>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="weui-loadmore weui-loadmore-line" style="margin-top: 2em">
+        <span class="weui-loadmore-tips">数据加载完毕</span>
+    </div>
+    <script>
+    $(function() {
+        // 自动排序
+        $.each($('.order'), function(index, item) {
+            // console.log('item %d is: %s', index, item)
+            $(this).click(function() {
+                var icon = $(this).children('.icon');
+                $(this).addClass('f-black').siblings().removeClass('f-black');
+                if (icon.hasClass('xz180')) {
+                    icon.removeClass('xz180').addClass('xz0')
+                } else {
+                    icon.removeClass('xz0').addClass('xz180')
+                }
+            })
+        })
+
+        // 电量范围
+        $("#powerLevel").picker({
+            title: "委托售电量范围",
+            toolbarCloseText: '确定',
+            cols: [{
+                textAlign: 'center',
+                values: ['1000kwh-5000kwh', '5001kwh-10000kwh', '10001kwh以上'],
+            }]
+        });
+
+        // 发布地区（省市）
+        $("#ss").cityPicker({
+            title: "选择省市",
+            showDistrict: false
+        });
+
+    });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,216 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>人人售电-掌上电力交易平台</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <link rel="stylesheet" href="../../assets/css/weuix.min.css">
+    <link rel="stylesheet" href="../../assets/css/common.css">
+    <script src="../../assets/js/zepto.min.js"></script>
+    <script src="../../assets/js/lib/picker.js"></script>
+    <script src="../../assets/js/lib/select.js"></script>
+    <script src="../../assets/js/lib/picker-city.js"></script>
+    <style>
+        /*解决模拟select层级不够*/
+
+        .weui-picker-overlay,
+        .weui-picker-container {
+            z-index: 2;
+        }
+        /*自动排序*/
+
+        .order {
+            color: gray;
+        }
+
+        .f-black {
+            color: black;
+        }
+
+        .order .icon {
+            display: inline-block;
+        }
+
+        .xz180 {
+            transform-origin: center center;
+            transform: rotate(180deg);
+            -webkit-transform: rotate(180deg);
+            -moz-transform: rotate(180deg);
+            -ms-transform: rotate(180deg);
+            -o-transform: rotate(180deg);
+            transition: transform 0.5s;
+            -moz-transition: -moz-transform 0.5s;
+            -moz-transition: -moz-transform 0.5s;
+            -o-transition: -o-transform 0.5s;
+            -ms-transition: -ms-transform 0.5s;
+        }
+
+        .xz0 {
+            transform-origin: center center;
+            transform: rotate(0deg);
+            -webkit-transform: rotate(0deg);
+            -moz-transform: rotate(0deg);
+            -ms-transform: rotate(0deg);
+            -o-transform: rotate(0deg);
+            transition: transform 0.5s;
+            -moz-transition: -moz-transform 0.5s;
+            -moz-transition: -moz-transform 0.5s;
+            -o-transition: -o-transform 0.5s;
+            -ms-transition: -ms-transform 0.5s;
+        }
+        /*解决date类型input不支持placeholder*/
+        input[type="date"]:before{
+            color:#CCC;
+            content:attr(placeholder);
+        }
+
+        input[type="date"].full:before {
+            color:black;
+            content:""!important;
+        }
+
+
+    </style>
+</head>
+
+<body ontouchstart style="background-color: #f8f8f8;">
+    <div class="weui_btn_primary weui-header ">
+        <div class="weui-header-left">
+            <a href="javascript:history.back();" class="icon icon-109 f-white"></a>
+        </div>
+        <h1 class="weui-header-title">签到列表</h1>
+    </div>
+    <div class="weui_search_bar">
+        <input id="dateS" type="date" class="search-input" placeholder='起始时间' style="box-sizing:content-box;outline: none;line-height: 30px;width: 42%"/>
+        <input id="dateE" type="date" class="search-input" placeholder='结束时间' style="box-sizing:content-box;border-left: 0;line-height: 30px;outline: none;width: 42%" />
+        <button class="weui_btn weui_btn_mini weui_btn_primary" id="search"><i class="icon icon-4"></i></button>
+    </div>
+    <div class="flex-col tcenter bg-white f14" style="height: 40px;line-height: 40px;">
+        <div class="flex-item-4 order f-black"><span class="m-r5">成交电量</span><span class="icon icon-35"></span></div>
+        <div class="flex-item-4 order weui-border-l"><span class="m-r5">成交时间</span><span class="icon icon-35"></span></div>
+        <div class="flex-item-4 order weui-border-l"><span class="m-r5"><input class="weui_input tcenter" placeholder="江西南昌" type="text" id="ss" name=""></span></div>
+    </div>
+
+    <!-- 最新签单 -->
+    <div class="weui_panel weui_panel_access">
+        <div class="weui_panel_bd f14" style="line-height: 30px;">
+            <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg flex-col tcenter">
+                <div class="flex-item-4"><div class="bg-green f-white">经纪人：张丽</div></div>
+                <div class="flex-item-8"><div class="bg-blue f-white -wrap">售电公司：江西丰锦电力有限公司</div></div>
+                <div class="flex-col" style="width: 100%">
+                    <dic class="flex-item-6 tleft">成交电量：<span class="f-red f-number">1200kwh</span></dic>
+                    <dic class="flex-item-6 tright">成交时间：<span class="f-red">2017-6-25</span></dic>
+                </div>
+            </a>
+            <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg flex-col tcenter">
+                <div class="flex-item-4"><div class="bg-green f-white">经纪人：张丽</div></div>
+                <div class="flex-item-8"><div class="bg-blue f-white -wrap">售电公司：江西丰锦电力有限公司</div></div>
+                <div class="flex-col" style="width: 100%">
+                    <dic class="flex-item-6 tleft">成交电量：<span class="f-red f-number">1200kwh</span></dic>
+                    <dic class="flex-item-6 tright">成交时间：<span class="f-red">2017-6-25</span></dic>
+                </div>
+            </a>
+            <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg flex-col tcenter">
+                <div class="flex-item-4"><div class="bg-green f-white">经纪人：张丽</div></div>
+                <div class="flex-item-8"><div class="bg-blue f-white -wrap">售电公司：江西丰锦电力有限公司</div></div>
+                <div class="flex-col" style="width: 100%">
+                    <dic class="flex-item-6 tleft">成交电量：<span class="f-red f-number">1200kwh</span></dic>
+                    <dic class="flex-item-6 tright">成交时间：<span class="f-red">2017-6-25</span></dic>
+                </div>
+            </a>
+            <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg flex-col tcenter">
+                <div class="flex-item-4"><div class="bg-green f-white">经纪人：张丽</div></div>
+                <div class="flex-item-8"><div class="bg-blue f-white -wrap">售电公司：江西丰锦电力有限公司</div></div>
+                <div class="flex-col" style="width: 100%">
+                    <dic class="flex-item-6 tleft">成交电量：<span class="f-red f-number">1200kwh</span></dic>
+                    <dic class="flex-item-6 tright">成交时间：<span class="f-red">2017-6-25</span></dic>
+                </div>
+            </a>
+            <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg flex-col tcenter">
+                <div class="flex-item-4"><div class="bg-green f-white">经纪人：张丽</div></div>
+                <div class="flex-item-8"><div class="bg-blue f-white -wrap">售电公司：江西丰锦电力有限公司</div></div>
+                <div class="flex-col" style="width: 100%">
+                    <dic class="flex-item-6 tleft">成交电量：<span class="f-red f-number">1200kwh</span></dic>
+                    <dic class="flex-item-6 tright">成交时间：<span class="f-red">2017-6-25</span></dic>
+                </div>
+            </a>
+            <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg flex-col tcenter">
+                <div class="flex-item-4"><div class="bg-green f-white">经纪人：张丽</div></div>
+                <div class="flex-item-8"><div class="bg-blue f-white -wrap">售电公司：江西丰锦电力有限公司</div></div>
+                <div class="flex-col" style="width: 100%">
+                    <dic class="flex-item-6 tleft">成交电量：<span class="f-red f-number">1200kwh</span></dic>
+                    <dic class="flex-item-6 tright">成交时间：<span class="f-red">2017-6-25</span></dic>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <script>
+    $(function() {
+        // 验证起始结束时间是否不正常
+        function compare() {
+            var a = $("#dateS").val();
+            var b = $("#dateE").val();
+            var a1 = a.split("-");
+            var b1 = b.split("-");
+            if (a1[0] > b1[0]) {
+                $.toptips("起始日期大于结束日期，无法搜索！");
+                return false;
+            } else if (a1[0] = b1[0]) {
+                if (a1[1] > b1[1]) {
+                    $.toptips("起始日期大于结束日期，无法搜索！");
+                    return false;
+                } else if (a1[1] = b1[1]) {
+                    if (a1[2] > b1[2]) {
+                        $.toptips("起始日期大于结束日期，无法搜索！");
+                        return false;
+                    } else {
+                        // alert('ok')
+                    }
+                } else {
+                    // alert('ok');
+                }
+            } else {
+                // alert('ok');
+            }
+        }
+        $('#search').click(function(){
+            return compare();
+        })
+
+        // 解决input的date类型placeholder问题
+        $("#dateS,#dateE").on("input",function(){
+           if($(this).val().length>0){
+           $(this).addClass("full");
+        }
+        else{
+          $(this).removeClass("full");
+          }
+         });
+
+        // 自动排序
+        $.each($('.order'), function(index, item) {
+            // console.log('item %d is: %s', index, item)
+            $(this).click(function() {
+                var icon = $(this).children('.icon');
+                $(this).addClass('f-black').siblings().removeClass('f-black');
+                if (icon.hasClass('xz180')) {
+                    icon.removeClass('xz180').addClass('xz0')
+                } else {
+                    icon.removeClass('xz0').addClass('xz180')
+                }
+            })
+        })
+
+        // 发布地区（省市）
+        $("#ss").cityPicker({
+            title: "选择省市",
+            showDistrict: false
+        });
+
+    });
+    </script>
+</body>
+
+</html>

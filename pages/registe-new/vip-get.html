@@ -1,0 +1,176 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>人人售电-掌上电力交易平台</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <link rel="stylesheet" href="../../assets/css/weuix.min.css">
+    <link rel="stylesheet" href="../../assets/css/common.css">
+    <script src="../../assets/js/zepto.min.js"></script>
+    <style>
+        .weui-border-radius:before{
+            border-radius: 48px;
+        }
+
+        .gradient {
+            background-image: -webkit-linear-gradient(right, #AAD827 0%, #00BA29 100%);
+            background-image: -o-linear-gradient(right, #AAD827 0%, #00BA29 100%);
+            background-image: linear-gradient(to right, #AAD827 0%, #00BA29 100%);
+        }
+
+        .gradient-red {
+            background-image: -webkit-linear-gradient(right, #d8534f 0%, #DA251C 100%);
+            background-image: -o-linear-gradient(right, #d8534f 0%, #DA251C 100%);
+            background-image: linear-gradient(to right, #d8534f 0%, #DA251C 100%);
+        }
+
+        .circle-a {
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            display: block;
+        }
+
+        .wh-100{
+            width: 100px;
+            height:100px;
+        }
+        .con{
+            width: 80%;
+        }
+        .form-con,ul{
+            list-style: none
+        }
+        .form-item{
+            height: 44px;line-height: 44px;
+            width: 100%;border-radius: 22px;
+            background-color: #fff;
+            font-size: 18px;
+            position: relative;
+        }
+        .form-item:before {
+            position: absolute;
+            z-index: -1;
+            left: 20px;
+            bottom: 20px;
+            width: 50%;
+            height: 10px;
+            content: "";
+            transform: skew(-24deg) rotate(-8deg);
+            -webkit-transform: skew(-24deg) rotate(-8deg);
+            -moz-transform: skew(-24deg) rotate(-8deg);
+            box-shadow: 0 20px 20px #888
+        }
+
+        .form-item:after {
+            position: absolute;
+            z-index: -2;
+            right: 20px;
+            bottom: 20px;
+            width: 50%;
+            height: 10px;
+            content: "";
+            transform: skew(24deg) rotate(8deg);
+            -webkit-transform: skew(24deg) rotate(8deg);
+            -moz-transform: skew(24deg) rotate(8deg);
+            box-shadow: 0 20px 20px #888
+        }
+        .form-item-input{
+            height: 44px;line-height: 44px;width: 80%;
+            margin-left: 10%;
+        }
+
+    </style>
+</head>
+
+<body ontouchstart class="page-lgreen">
+    <div class="tit f-white tcenter f20" style="letter-spacing: 2px;overflow:hidden;">
+        <img class="img-max center wh-100 m-t15" src="../../assets/images/logo/rrsd-my.png" alt="">
+        <p class="f-green m-t15">VIP开通</p>
+    </div>
+    <div class="con center">
+        <form id="form">
+            <ul class="form-con">
+                <li class="form-item m-t25"><input id="lxfs" class="weui_input form-item-input tcenter" placeholder="手机号码" type="tel" required pattern="^1[3,4,5,7,8]\d{9}$" maxlength="11" emptyTips="请输入手机号" notMatchTips="请输入正确的手机号"></li>
+                <li class="m-t25">
+                    <ul>
+                        <li class="form-item" style="width: 50%;display: inline-block;">
+                            <input class="weui_input form-item-input tcenter" placeholder="验证码" type="number">
+
+                        </li>
+                        <button onclick="time(this)" class="right tcenter f-green weui-border-radius f16" style="width: 40%;line-height: 44px;border-radius: 30px">获取验证码</button>
+                    </ul>
+                </li>
+                <li class="form-item m-t25 tcenter gradient">
+                    <a id="formSubmitBtn" href="javascript:void(0);" class="f-white" style="width: 100%;height: 100%;display: block;">点击开通</a>
+                </li>
+            </ul>
+            <div class="tcenter m-t20">
+                <a href="login.html" class="f-black right">返回登录</a>
+            </div>
+        </form>
+    </div>
+
+<script>
+    // 验证码倒计时
+    var wait = 80;
+    function time(o) {
+        var reg = /^1[3,4,5,7,8]\d{9}$/;
+        if(reg.test($('#lxfs').val())){
+            if (wait == 0) {
+                o.removeAttribute("disabled");
+                o.setAttribute("class","right tcenter f-green weui-border-radius f16");
+                o.innerHTML = "获取验证码";
+                wait = 60;
+            } else {
+                o.setAttribute("disabled", true);
+                o.setAttribute("class","right tcenter f-green weui-border-radius f16");
+                o.innerHTML = "重新发送(" + wait + ")";
+                wait--;
+                setTimeout(function() {
+                    time(o)
+                },1000)
+            }
+        }else{
+
+        }
+    }
+    // 表单验证
+    var $form = $("#form");
+    $("#formSubmitBtn").on("click", function () {
+        $form.validate(function (error) {
+            if (error) {
+
+            } else {
+                var data = {
+                };
+                $.ajax({
+                    type: 'post',
+                    url: "",
+                    data: data,
+                    dataType: 'json',
+                    beforeSend: function (xhr, options) {
+                        $.showLoading();
+                    },
+                    complete: function (XHR, TS) {
+                        $.hideLoading();
+                    },
+                    success: function (data) {
+                        if (data['success']) {
+
+                        } else {
+                            $.toptips(data['result'], 'info');
+                        }
+                    },
+                    error: function () {
+                        $.toptips('网络连接错误，请检查您的网络！', 'warning');
+                    }
+                });
+            }
+        });
+    });
+</script>
+</body>
+
+</html>

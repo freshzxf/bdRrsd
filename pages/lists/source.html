@@ -1,0 +1,326 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>人人售电-掌上电力交易平台</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <link rel="stylesheet" href="../../assets/css/weuix.min.css">
+    <link rel="stylesheet" href="../../assets/css/common.css">
+    <script src="../../assets/js/zepto.min.js"></script>
+    <script src="../../assets/js/lib/picker.js"></script>
+    <script src="../../assets/js/lib/select.js"></script>
+    <script src="../../assets/js/lib/picker-city.js"></script>
+    <style>
+    /*状态标签*/
+
+    .weui_media_appmsg {
+        overflow: hidden;
+    }
+
+    .weui-mark-lt {
+        color: #fff;
+        font-size: 12px !important;
+        height: 14px;
+        line-height: 14px !important;
+        text-align: center;
+        transform: rotate(-45deg);
+        width: 80px;
+        position: absolute;
+        bottom: 15px;
+        right: -17px;
+        left: auto;
+        top: auto;
+    }
+    /*解决模拟select层级不够*/
+
+    .weui-picker-overlay,
+    .weui-picker-container {
+        z-index: 2;
+    }
+    /*解决顶部挡住popup*/
+    .weui-popup-modal{
+        height: 100%;
+       top: 45px;
+    }
+    /*自动排序*/
+
+    .order {
+        color: gray;
+    }
+
+    .f-black {
+        color: black;
+    }
+
+    .order .icon {
+        display: inline-block;
+    }
+
+    .xz180 {
+        transform-origin: center center;
+        transform: rotate(180deg);
+        -webkit-transform: rotate(180deg);
+        -moz-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+        -o-transform: rotate(180deg);
+        transition: transform 0.5s;
+        -moz-transition: -moz-transform 0.5s;
+        -moz-transition: -moz-transform 0.5s;
+        -o-transition: -o-transform 0.5s;
+        -ms-transition: -ms-transform 0.5s;
+    }
+
+    .xz0 {
+        transform-origin: center center;
+        transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transition: transform 0.5s;
+        -moz-transition: -moz-transform 0.5s;
+        -moz-transition: -moz-transform 0.5s;
+        -o-transition: -o-transform 0.5s;
+        -ms-transition: -ms-transform 0.5s;
+    }
+    </style>
+</head>
+
+<body ontouchstart style="background-color: #f8f8f8;">
+    <div class="weui_btn_primary weui-header ">
+        <div class="weui-header-left">
+            <a href="javascript:history.back();" class="icon icon-109 f-white"></a>
+        </div>
+        <h1 class="weui-header-title">售电公司悬赏资源</h1>
+    </div>
+    <div class="weui_search_bar">
+        <input type="search" class="search-input" id='search' placeholder='悬赏企业' style="box-sizing:content-box;outline: none" />
+        <button class="weui_btn weui_btn_mini weui_btn_primary"><i class="icon icon-4"></i></button>
+    </div>
+    <div class="flex-col tcenter bg-white f14" style="height: 40px;line-height: 40px;">
+        <!-- <span class="icon icon-74"></span> -->
+        <!-- <div class="flex-item-3 weui-border-l"><span class="m-r10">条件筛选</span><span class="icon icon-4"></span></div>         -->
+        <div class="flex-item-3 order f-black"><span class="m-r5">售电量</span><span class="icon icon-35"></span></div>
+        <div class="flex-item-3 order weui-border-l"><span class="m-r5">悬赏金额</span><span class="icon icon-35"></span></div>
+        <div class="flex-item-3 order weui-border-l"><span class="m-r5">发布时间</span><span class="icon icon-35"></span></div>
+        <div class="flex-item-3 order open-popup weui-border-l" data-target="#popup"><span>高级筛选</span></div>
+    </div>
+    <!-- 筛选弹窗 -->
+    <div id="popup" class="weui-popup-container" style="z-index: 1">
+        <div class="weui-popup-modal">
+            <!-- 筛选表单 -->
+            <form id="form">
+                <div class="weui_cells weui_cells_form ">
+                    <div class="weui_cells_title">部分范围：</div>
+                    <div class="weui_cell">
+                        <div class="weui_cell_hd">
+                            <label for="powerLevel" class="weui_label">电量范围 :</label>
+                        </div>
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <input class="weui_input" type="text" value="" id='powerLevel' placeholder="点击选择" />
+                        </div>
+                    </div>
+                    <div class="weui_cell">
+                        <div class="weui_cell_hd">
+                            <label for="moneyLevel" class="weui_label">赏金范围 :</label>
+                        </div>
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <input class="weui_input" type="text" value="" id='moneyLevel' placeholder="点击选择" />
+                        </div>
+                    </div>
+                    <div class="weui_cells_title">签单发布时间段：</div>
+                    <div class="weui_cell">
+                        <div class="weui_cell_hd">
+                            <label for="dateS" class="weui_label">起始时间:</label>
+                        </div>
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <input class="weui_input" type="text" id='dateS' placeholder="点击选择" />
+                        </div>
+                    </div>
+                    <div class="weui_cell">
+                        <div class="weui_cell_hd">
+                            <label for="dateE" class="weui_label">截止时间:</label>
+                        </div>
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <input class="weui_input" type="text" id='dateE' placeholder="点击选择" />
+                        </div>
+                    </div>
+                    <div class="weui_cells_title">发布地区：</div>
+                    <div class="weui_cell">
+                        <div class="weui_cell_hd">
+                            <label for="ss" class="weui_label">省市:</label>
+                        </div>
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <input class="weui_input" type="text" value="" id='ss' />
+                        </div>
+                    </div>
+                </div>
+                <p class='page-bd-15 m-t10'><a href="javascript:;" class="weui_btn weui_btn_primary close-popup" id="filter">确认筛选</a></p>
+            </form>
+        </div>
+    </div>
+    <div class="weui_panel weui_panel_access">
+        <div class="weui_panel_bd">
+            <a href="../details/details-favorited.html" class="weui_media_box weui_media_appmsg">
+                <div class="weui_media_hd weui-updown">
+                    <img class="weui_media_appmsg_thumb lazyload list-img" src="../../assets/images/notice/fj.png" alt="" data-img="' + data[i].pic + '">
+                </div>
+                <div class="weui_media_bd">
+                    <h4 class="weui_media_title">江西丰锦电力集团
+                        <span class="right f-gray">2017-05-28</span>
+                    </h4>
+                    <p class="weui_media_desc"><span class="icon icon-91 f-red"></span>:100,000 kwh <span class="icon icon-2 f-red"></span>:2000 ¥</p>
+                </div>
+                <!-- 已收藏加上如下标签 -->
+                <span class="weui-mark-lt bg-orange">已收藏</span>
+            </a>
+            <a href="../details/details.html" class="weui_media_box weui_media_appmsg">
+                <div class="weui_media_hd weui-updown">
+                    <img class="weui_media_appmsg_thumb lazyload list-img" src="../../assets/images/notice/notice4.jpg" alt="" data-img="' + data[i].pic + '">
+                </div>
+                <div class="weui_media_bd">
+                    <h4 class="weui_media_title">江西晶科售电有限公司
+                        <span class="right f-gray">2017-04-28</span>
+                    </h4>
+                    <p class="weui_media_desc"><span class="icon icon-91 f-red"></span>:80,000 kwh <span class="icon icon-2 f-red"></span>:1000 ¥</p>
+                </div>
+            </a>
+            <a href="../details/details.html" class="weui_media_box weui_media_appmsg">
+                <div class="weui_media_hd weui-updown">
+                    <img class="weui_media_appmsg_thumb lazyload list-img" src="../../assets/images/notice/notice5.jpg" alt="" data-img="' + data[i].pic + '">
+                </div>
+                <div class="weui_media_bd">
+                    <h4 class="weui_media_title">江西国泰售电有限公司
+                        <span class="right f-gray">2017-06-10</span>
+                    </h4>
+                    <p class="weui_media_desc"><span class="icon icon-91 f-red"></span>:800,000 kwh <span class="icon icon-2 f-red"></span>:3000 ¥</p>
+                </div>
+            </a>
+            <a href="../details/details-favorited.html" class="weui_media_box weui_media_appmsg">
+                <div class="weui_media_hd weui-updown">
+                    <img class="weui_media_appmsg_thumb lazyload list-img" src="../../assets/images/notice/notice6.jpg" alt="" data-img="' + data[i].pic + '">
+                </div>
+                <div class="weui_media_bd">
+                    <h4 class="weui_media_title">江西国恒源电有限公司
+                        <span class="right f-gray">2017-06-10</span>
+                    </h4>
+                    <p class="weui_media_desc"><span class="icon icon-91 f-red"></span>:800,000 kwh <span class="icon icon-2 f-red"></span>:3000 ¥</p>
+                </div>
+                <!-- 已收藏加上如下标签 -->
+                <span class="weui-mark-lt bg-orange">已收藏</span>
+            </a>
+            <a href="../details/details.html" class="weui_media_box weui_media_appmsg">
+                <div class="weui_media_hd weui-updown">
+                    <img class="weui_media_appmsg_thumb lazyload list-img" src="../../assets/images/notice/notice2.jpg" alt="" data-img="' + data[i].pic + '">
+                </div>
+                <div class="weui_media_bd">
+                    <h4 class="weui_media_title">江西勤源电能售电有限公司
+                        <span class="right f-gray">2017-06-10</span>
+                    </h4>
+                    <p class="weui_media_desc"><span class="icon icon-91 f-red"></span>:800,000 kwh <span class="icon icon-2 f-red"></span>:3000 ¥</p>
+                </div>
+            </a>
+        </div>
+    </div>
+    <script>
+    $(function() {
+
+        // 自动排序
+        $.each($('.order'), function(index, item) {
+            // console.log('item %d is: %s', index, item)
+            $(this).click(function() {
+                var icon = $(this).children('.icon');
+                $(this).addClass('f-black').siblings().removeClass('f-black');
+                if (icon.hasClass('xz180')) {
+                    icon.removeClass('xz180').addClass('xz0')
+                } else {
+                    icon.removeClass('xz0').addClass('xz180')
+                }
+            })
+        })
+
+        // 电量范围
+        $("#powerLevel").picker({
+            title: "委托售电量范围",
+            toolbarCloseText: '确定',
+            cols: [{
+                textAlign: 'center',
+                values: ['1000-5000', '5001-10000', '10001以上'],
+            }]
+        });
+
+        // 赏金范围
+        $("#moneyLevel").picker({
+            title: "悬赏金额范围",
+            toolbarCloseText: '确定',
+            cols: [{
+                textAlign: 'center',
+                values: ['1000-5000', '5001-10000', '10001以上'],
+            }]
+        });
+
+        // 起始截止日期
+        var date = new Date();
+        var year = date.getFullYear();
+        var month = (date.getMonth() + 1) < 10 ? "0" + (date.getMonth() + 1) : (date.getMonth() + 1);
+        var day = date.getDate();
+        $("#dateS").datetimePicker({
+            title: "选择日期",
+            m: 1,
+            min: '2000-01-01',
+            max: (year) + "-" + month + "-" + day
+        });
+        $("#dateE").datetimePicker({
+            title: "选择日期",
+            m: 1,
+            min: '2000-01-02',
+            max: (year) + "-" + month + "-" + day
+        });
+
+        // 验证起始结束时间是否不正常
+        function compare() {
+            var a = $("#dateS").val();
+            var b = $("#dateE").val();
+            var a1 = a.split("-");
+            var b1 = b.split("-");
+            if (a1[0] > b1[0]) {
+                $.toptips("起始日期大于结束日期，无法提交！");
+                return false;
+            } else if (a1[0] = b1[0]) {
+                if (a1[1] > b1[1]) {
+                    $.toptips("起始日期大于结束日期，无法提交！");
+                    return false;
+                } else if (a1[1] = b1[1]) {
+                    if (a1[2] > b1[2]) {
+                        $.toptips("起始日期大于结束日期，无法提交！");
+                        return false;
+                    } else {
+                        // alert('ok')
+                    }
+                } else {
+                    // alert('ok');
+                }
+            } else {
+                // alert('ok');
+            }
+        }
+
+        // 发布地区（省市）
+        $("#ss").cityPicker({
+            title: "选择省市",
+            showDistrict: false
+        });
+
+        $('#filter').click(function() {
+            return compare();
+        })
+
+
+
+
+    });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,165 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>人人售电-掌上电力交易平台</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <link rel="stylesheet" href="../../assets/css/weuix.min.css">
+    <link rel="stylesheet" href="../../assets/css/common.css">
+    <script src="../../assets/js/zepto.min.js"></script>
+    <script src="../../assets/js/lib/updown.js"></script>
+    <script src="../../assets/js/lib/lazyimg.js"></script>
+    <style>
+        .weui_media_appmsg {
+            overflow: hidden;
+        }
+
+        .weui-mark-lt {
+            color: #fff;
+            font-size: 12px !important;
+            height: 14px;
+            line-height: 14px !important;
+            text-align: center;
+            transform: rotate(-45deg);
+            width: 80px;
+            position: absolute;
+            bottom: 15px;
+            right: -17px;
+            left: auto;
+            top: auto;
+        }
+    </style>
+</head>
+
+<body ontouchstart style="background-color: #f8f8f8;">
+    <div class="weui_btn_primary weui-header ">
+        <div class="weui-header-left">
+            <a href="javascript:history.back();" class="icon icon-109 f-white"></a>
+        </div>
+        <h1 class="weui-header-title">我的列表</h1>
+    </div>
+
+    <div class="weui_tab " style="height:44px;" id="tab">
+        <!--tab-fixed添加顶部-->
+        <div class="weui_navbar" style="height:44px;">
+            <div class="weui_navbar_item">
+                我的申请
+            </div>
+            <div class="weui_navbar_item">
+                我的收藏
+            </div>
+            <div class="weui_navbar_item">
+                我的发布
+            </div>
+            <div class="weui_navbar_item">
+                我的成交
+            </div>
+        </div>
+    </div>
+    <div class="weui_panel weui_panel_access">
+        <div class="weui_panel_bd weui_panel_bd1">
+        </div>
+        <div class="weui_panel_bd weui_panel_bd2">
+        </div>
+        <div class="weui_panel_bd weui_panel_bd3">
+        </div>
+        <div class="weui_panel_bd weui_panel_bd4">
+        </div>
+    </div>
+    <script>
+    $(function() {
+        var href = location.href
+        var idArr = href.split('#', 2)
+        var id = idArr[1]
+        function getList(bgclass, text, jsonName, num) {
+            //页数
+            var page = 0;
+            // 每页展示10个
+            var size = 10;
+            $('.weui_panel').dropload({
+                scrollArea: window,
+                autoLoad: true, //自动加载
+                domDown: { //上拉
+                    domClass: 'dropload-down',
+                    domRefresh: '<div class="dropload-refresh f15 "><i class="icon icon-20"></i>上拉加载更多</div>',
+                    domLoad: '<div class="dropload-load f15"><span class="weui-loading"></span>正在加载中...</div>',
+                    domNoData: '<div class="dropload-noData">没有更多数据了</div>'
+                },
+                loadDownFn: function(me) { //加载更多
+                    page++;
+                    window.history.pushState(null, document.title, window.location.href);
+                    var result = '';
+                    $.ajax({
+                        type: 'GET',
+                        url: '../../assets/jsons/' + jsonName + page + '.json',
+                        dataType: 'json',
+                        success: function(data) {
+                            var arrLen = data.length;
+                            if (arrLen > 0) {
+                                for (var i = 0; i < arrLen; i++) {
+                                    result += '<a href="../details/details-application.html" class="weui_media_box weui_media_appmsg">' + '<div class="weui_media_hd weui-updown">' + '<img class="weui_media_appmsg_thumb lazyload list-img" src="../../assets/images/notice/fj.png" alt="" data-img="' + data[i].pic + '">' + '</div>' + '<div class="weui_media_bd">' + '<h4 class="weui_media_title">' + data[i].firm + '<span class="right f-gray">' + data[i].date + '</span>' + '</h4>' + '<p class="weui_media_desc">' + data[i].detail + '</p>' + '</div>' + '<span class="weui-mark-lt ' + bgclass + '">' + text + '</span>' + '</a>';
+                                }
+                                // 如果没有数据
+                            } else {
+                                // 锁定
+                                me.lock();
+                                // 无数据
+                                me.noData();
+                            }
+
+                            // 为了测试，延迟1秒加载
+                            setTimeout(function() {
+                                $('.weui_panel_bd' + num).append(result);
+                                var lazyloadImg = new LazyloadImg({
+                                    el: '.weui-updown [data-img]', //匹配元素
+                                    top: 50, //元素在顶部伸出长度触发加载机制
+                                    right: 50, //元素在右边伸出长度触发加载机制
+                                    bottom: 50, //元素在底部伸出长度触发加载机制
+                                    left: 50, //元素在左边伸出长度触发加载机制
+                                    qriginal: false, // true，自动将图片剪切成默认图片的宽高；false显示图片真实宽高
+                                    load: function(el) {
+                                        el.style.cssText += '-webkit-animation: fadeIn 01s ease 0.2s 1 both;animation: fadeIn 1s ease 0.2s 1 both;';
+                                    },
+                                    error: function(el) {
+
+                                    }
+                                });
+                                // 每次数据加载完，必须重置
+                                me.resetload();
+                            }, 1000);
+                        },
+                        error: function(xhr, type) {
+                            console.log('Ajax error!');
+                            // 即使加载出错，也得重置
+                            // me.resetload();
+                        }
+                    });
+                }
+            });
+
+        }
+
+        // tab切换
+        $('#tab').tab({
+            defaultIndex: id,
+            activeClass: "tab-green",
+            onToggle: function(index) {
+                $('.weui_panel_access').find('.weui_panel_bd').eq(index).show().siblings().hide();
+                if (index == 0) {
+                    getList('bg-green', '已申请', 'applied', '1')
+                } else if (index == 1) {
+                    getList('bg-orange', '已收藏', 'favorited', '2')
+                } else if (index == 2) {
+                    getList('', '', 'favorited', '3')
+                } else if (index == 3) {
+                    getList('bg-blue', '已成交', 'favorited', '4')
+                }
+            }
+        });
+
+    })
+    </script>
+</body>
+
+</html>

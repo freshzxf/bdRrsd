@@ -1,0 +1,317 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>人人售电-掌上电力交易平台</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <link rel="stylesheet" href="../../assets/css/weuix.min.css">
+    <link rel="stylesheet" href="../../assets/css/common.css">
+    <script src="../../assets/js/zepto.min.js"></script>
+    <script src="../../assets/js/lib/countUp.min.js"></script>
+    <style>
+        .lev{
+            width: 65px;height: 30px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin: auto;
+            text-align: right;
+            font-weight: bold;
+            position: relative;
+        }
+        .llev{
+            background-image: url(../../assets/images/level/llev.png);:
+        }
+
+        .hlev{
+            background-image: url(../../assets/images/level/hlev.png);:
+        }
+        .lev .f-number{
+            position: absolute;
+            right: 6px;
+            bottom: 2px;
+        }
+        @media screen and (-webkit-min-device-pixel-ratio: 2) {
+            .weui-table td:after,
+            .weui-table th:after {
+                content: "";
+                position: fixed;
+                width: 0;
+                height: 0;
+                left: 0;
+                top: 0;
+                background-image: -webkit-gradient(linear, left top, right top, color-stop(0.5, transparent), color-stop(0.5, #e0e0e0), to(#e0e0e0)), -webkit-gradient(linear, left top, left bottom, color-stop(0.5, transparent), color-stop(0.5, #e0e0e0), to(#e0e0e0));
+                background-size: 1px 100%, 100% 1px;
+                background-repeat: no-repeat;
+                background-position: right, bottom;
+            }
+        }
+    </style>
+</head>
+
+<body ontouchstart class="page-bg">
+    <div class="weui_btn_primary weui-header ">
+        <div class="weui-header-left">
+            <a href="javascript:history.back();" class="icon icon-109 f-white"></a>
+        </div>
+        <h1 class="weui-header-title">个人中心</h1>
+    </div>
+
+    <div class="weui_tab " style="height:44px;" id="tab"><!--tab-fixed添加顶部-->
+        <div class="weui_navbar" style="height:44px;">
+            <div class="weui_navbar_item  ">
+                我是售电经纪人
+            </div>
+            <div class="weui_navbar_item  ">
+                我是售电公司
+            </div>
+        </div>
+    </div>
+
+    <div class="weui_tab">
+        <!-- 售电经纪人 -->
+        <div class="weui_tab_con">
+            <div class="weui_panel weui_panel_access">
+                <div class="weui_panel_bd">
+                    <a href="selfInfo.html" class="weui_media_box weui_media_appmsg">
+                        <div class="weui_media_hd">
+                            <img class="weui_media_appmsg_thumb img-radius" style="width: 100%;height: 100%" src="../../assets/images/avatar/avatar7.jpg" alt="">
+                        </div>
+                        <div class="weui_media_bd">
+                            <h4 class="weui_media_title">张丽</h4>
+                            <p class="weui_media_desc">售电经纪人</p>
+                        </div>
+                        <div class="lev hlev">
+                            <span class="f13 f-white f-number">LV 8</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <!-- 展示数据 -->
+            <table class="weui-table">
+                <tr>
+                    <td class="weui-border-l">
+                        <span class="f-number f20 f-gray"><span id="okPower0">19856</span><span style="margin-left: 5px;">kwh</span></span>
+                        <p style="margin-top: -5px;">已完成售电量</p>
+                    </td>
+                    <td class="weui-border-l">
+                        <span class="f-number f20 f-green"><span id="plaPower0">28523</span><span style="margin-left: 5px;">kwh</span></span>
+                        <p style="margin-top: -5px;">预计可售电量</p>
+                    </td>
+                </tr>
+            </table>
+            <div class="weui_panel">
+                <div class="weui_panel_bd">
+                    <div class="weui_media_box weui_media_small_appmsg">
+                        <div class="weui_cells weui_cells_access">
+                            <a class="weui_cell state state1" href="../lists/list.html#0">
+                                <div class="weui_cell_hd"><span class="iconfont icon-sm-yes m-r10 f-dark"></span></div>
+                                <div class="weui_cell_bd weui_cell_primary">
+                                    <p>实名认证</p>
+                                </div>
+                                <span class="weui_cell_ft">已认证</span>
+                            </a>
+                            <a class="weui_cell state state2" href="../lists/list.html#1">
+                                <div class="weui_cell_hd"><span class="iconfont icon-dh-yes m-r10 f-dark"></span></div>
+                                <div class="weui_cell_bd weui_cell_primary">
+                                    <p>电话面试</p>
+                                </div>
+                                <span class="weui_cell_ft">已认证</span>
+                            </a>
+                            <a class="weui_cell state state3" href="../lists/list.html#2">
+                                <div class="weui_cell_hd"><span class="iconfont icon-pz-yes m-r10 f-dark"></span></div>
+                                <div class="weui_cell_bd weui_cell_primary">
+                                    <p>经纪人牌照</p>
+                                </div>
+                                <span class="weui_cell_ft">已认证</span>
+                            </a>
+                            <a class="weui_cell state state4" href="../lists/list.html#3">
+                                <div class="weui_cell_hd"><span class="iconfont icon-hz-yes m-r10 f-light"></span></div>
+                                <div class="weui_cell_bd weui_cell_primary">
+                                    <p>成交胸章</p>
+                                </div>
+                                <span class="weui_cell_ft">未获得</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="weui_panel">
+                <div class="weui_panel_hd">我的菜单</div>
+                <div class="weui_panel_bd">
+                    <div class="weui_media_box weui_media_small_appmsg">
+                        <div class="weui_cells weui_cells_access">
+                            <a class="weui_cell" href="../lists/list.html#0">
+                                <div class="weui_cell_hd"><span class="icon icon-67 f-green m-r10"></span></div>
+                                <div class="weui_cell_bd weui_cell_primary">
+                                    <p>我的申请</p>
+                                </div>
+                                <span class="weui_cell_ft"></span>
+                            </a>
+                            <a class="weui_cell" href="../lists/list.html#1">
+                                <div class="weui_cell_hd"><span class="icon icon-103 f-green m-r10"></span></div>
+                                <div class="weui_cell_bd weui_cell_primary">
+                                    <p>我的发布</p>
+                                </div>
+                                <span class="weui-badge" style="margin-left: 5px;">1</span>
+                                <span class="weui_cell_ft"></span>
+                            </a>
+                            <a class="weui_cell" href="../lists/list.html#2">
+                                <div class="weui_cell_hd"><span class="icon icon-49 f-green m-r10"></span></div>
+                                <div class="weui_cell_bd weui_cell_primary">
+                                    <p>我的收藏</p>
+                                </div>
+                                <span class="weui_cell_ft"></span>
+                            </a>
+                            <a class="weui_cell" href="../lists/list.html#3">
+                                <div class="weui_cell_hd"><span class="icon icon-65 f-green m-r10"></span></div>
+                                <div class="weui_cell_bd weui_cell_primary">
+                                    <p>我的成交</p>
+                                </div>
+                                <span class="weui_cell_ft"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="weui_panel">
+                <div class="weui_media_box weui_media_small_appmsg">
+                    <div class="weui_cells weui_cells_access">
+                        <a class="weui_cell" href="system-notice.html">
+                            <div class="weui_cell_hd"><span class="icon icon-53 f-green m-r10"></span></div>
+                            <div class="weui_cell_bd weui_cell_primary">
+                                <p>系统提示</p>
+                            </div>
+                            <span class="weui-badge" style="margin-left: 5px;">2</span>
+                            <span class="weui_cell_ft"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="weui_panel">
+                <div class="weui_media_box weui_media_small_appmsg">
+                    <div class="weui_cells weui_cells_access">
+                        <a class="weui_cell" href="about-us.html">
+                            <div class="weui_cell_hd"><span class="icon icon-47 f-green m-r10"></span></div>
+                            <div class="weui_cell_bd weui_cell_primary">
+                                <p>关于我们</p>
+                            </div>
+                            <span class="weui_cell_ft"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 售电公司 -->
+        <div class="weui_tab_con">
+            <div class="weui_panel weui_panel_access">
+                <div class="weui_panel_bd">
+                    <a href="selfInfo.html" class="weui_media_box weui_media_appmsg">
+                        <div class="weui_media_hd">
+                            <img class="weui_media_appmsg_thumb img-radius" style="width: 100%;height: 100%" src="../../assets/images/logo/fjsd.png" alt="">
+                        </div>
+                        <div class="weui_media_bd">
+                            <h4 class="weui_media_title">江西丰锦电力</h4>
+                            <p class="weui_media_desc">售电公司</p>
+                        </div>
+                        <div class="lev hlev">
+                            <span class="f13 f-white f-number">LV 6</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <!-- 展示数据 -->
+            <table class="weui-table">
+                <tr>
+                    <td class="weui-border-l">
+                        <span class="f-number f20 f-gray"><span id="okPower1">19856</span><span style="margin-left: 5px;">kwh</span></span>
+                        <p style="margin-top: -5px;">已完成售电量</p>
+                    </td>
+                    <td class="weui-border-l">
+                        <span class="f-number f20 f-green"><span id="plaPower1">28523</span><span style="margin-left: 5px;">kwh</span></span>
+                        <p style="margin-top: -5px;">预计可售电量</p>
+                    </td>
+                </tr>
+            </table>
+            <div class="weui_panel">
+                <div class="weui_panel_hd">我的菜单</div>
+                <div class="weui_panel_bd">
+                    <div class="weui_media_box weui_media_small_appmsg">
+                        <div class="weui_cells weui_cells_access">
+                            <a class="weui_cell" href="../lists/list.html#1">
+                                <div class="weui_cell_hd"><span class="icon icon-103 f-green m-r10"></span></div>
+                                <div class="weui_cell_bd weui_cell_primary">
+                                    <p>我的发布</p>
+                                </div>
+                                <span class="weui-badge" style="margin-left: 5px;">1</span>
+                                <span class="weui_cell_ft"></span>
+                            </a>
+                            <a class="weui_cell" href="../lists/list.html#2">
+                                <div class="weui_cell_hd"><span class="icon icon-49 f-green m-r10"></span></div>
+                                <div class="weui_cell_bd weui_cell_primary">
+                                    <p>我的收藏</p>
+                                </div>
+                                <span class="weui_cell_ft"></span>
+                            </a>
+                            <a class="weui_cell" href="../lists/list.html#3">
+                                <div class="weui_cell_hd"><span class="icon icon-65 f-green m-r10"></span></div>
+                                <div class="weui_cell_bd weui_cell_primary">
+                                    <p>我的成交</p>
+                                </div>
+                                <span class="weui_cell_ft"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="weui_panel">
+                <div class="weui_media_box weui_media_small_appmsg">
+                    <div class="weui_cells weui_cells_access">
+                        <a class="weui_cell" href="system-notice.html">
+                            <div class="weui_cell_hd"><span class="icon icon-53 f-green m-r10"></span></div>
+                            <div class="weui_cell_bd weui_cell_primary">
+                                <p>系统提示</p>
+                            </div>
+                            <span class="weui-badge" style="margin-left: 5px;">2</span>
+                            <span class="weui_cell_ft"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="weui_panel">
+                <div class="weui_media_box weui_media_small_appmsg">
+                    <div class="weui_cells weui_cells_access">
+                        <a class="weui_cell" href="about-us.html">
+                            <div class="weui_cell_hd"><span class="icon icon-47 f-green m-r10"></span></div>
+                            <div class="weui_cell_bd weui_cell_primary">
+                                <p>关于我们</p>
+                            </div>
+                            <span class="weui_cell_ft"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+    // 数组递增
+    function countNumber(target,startVal,endVal,decimals,duration){
+        var demo = new CountUp(target, startVal, endVal, decimals, duration);
+        demo.start();
+    }
+    countNumber('okPower0',0, 19856, 0, 1.5);
+    countNumber('plaPower0',0, 28532, 0, 1.5);
+    countNumber('okPower1',0, 19856, 0, 1.5);
+    countNumber('plaPower1',0, 28532, 0, 1.5);
+    // tab切换
+    $('#tab').tab({
+        defaultIndex: 0,
+        activeClass: "tab-green",
+        onToggle: function(index) {
+            $('.weui_tab').find('.weui_tab_con').eq(index).show().siblings().hide();
+        }
+    });
+</script>
+</body>
+
+</html>

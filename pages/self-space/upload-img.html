@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>人人售电</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <link rel="stylesheet" href="../../assets/css/weuix.min.css">
+    <script src="../../assets/js/zepto.min.js"></script>
+    <script src="../../assets/js/lib/lrz.min.js"></script>
+</head>
+<body ontouchstart style="background-color: #f8f8f8;">
+    <form id="form">
+        <div class="weui_cell">
+            <div class="weui_cell_bd weui_cell_primary">
+                <div class="weui_uploader">
+                    <div class="weui_uploader_hd weui_cell">
+                        <div class="weui_cell_bd weui_cell_primary">修改头像</div>
+                        <div class="weui_cell_ft"></div>
+                    </div>
+                    <div class="weui_uploader_bd">
+                        <ul class="weui_uploader_files" id='img1'>
+                        </ul>
+                        <div class="weui_uploader_input_wrp">
+                            <input class="weui_uploader_input" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" id="i1" onchange="previewImage(this)" />
+                            <input type="hidden" id="i4" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 进度条 -->
+        <div class="weui_progress">
+            <div class="weui_progress_bar">
+                <div class="weui_progress_inner_bar js_progress" style="width: 0%;"></div>
+            </div>
+        </div>
+        <!-- 确认上传 -->
+        <div class="weui_btn_area">
+            <a class="weui_btn weui_btn_primary bg-green" href="javascript:" id="formSubmitBtn">确认上传</a>
+        </div>
+    </form>
+    <script>
+    // 预览缩略图
+   function previewImage(file) {
+        var MAXWIDTH = 100;
+        var MAXHEIGHT = 200;
+        if (file.files && file.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(evt) {
+                $('#img1').html('<li class="weui_uploader_file" style="background-image:url(' + evt.target.result + ')"></li>');
+            };
+            reader.readAsDataURL(file.files[0]); //
+            console.log(file.files[0]);
+        }
+    }
+    $(function() {
+        $("#formSubmitBtn").click(function() {
+            if ($(this).hasClass('weui_btn_disabled')) {
+                return;
+            }
+
+            $(this).addClass('weui_btn_disabled');
+
+            var progress = 0;
+            var $progress = $('.js_progress');
+
+            function next() {
+                $progress.css({
+                    width: progress + '%'
+                });
+                progress = ++progress % 100;
+                setTimeout(next, 30);
+            }
+
+            next();
+        });
+    })
+    </script>
+</body>
+
+</html>

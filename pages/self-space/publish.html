@@ -1,0 +1,214 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>人人售电-掌上电力交易平台</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <link rel="stylesheet" href="../../assets/css/weuix.min.css">
+    <link rel="stylesheet" href="../../assets/css/common.css">
+    <script src="../../assets/js/zepto.min.js"></script>
+    <script src="../../assets/js/lib/picker.js"></script>
+    <script src="../../assets/js/lib/select.js"></script>
+    <style>
+        .weui_cell1:before{border-top: 0;}
+    </style>
+
+</head>
+
+<body ontouchstart style="background-color: #f8f8f8;">
+
+    <div class="weui_btn_primary weui-header ">
+        <div class="weui-header-left">
+            <a href="javascript:history.back();" class="icon icon-109 f-white"></a>
+        </div>
+        <h1 class="weui-header-title">发布资源</h1>
+    </div>
+
+	<!-- 发布信息表单 -->
+    <form id="form">
+        <!-- 资源信息 -->
+        <div class="weui_cells_title">资源信息</div>
+        <div class="weui_cells weui_cells_form">
+            <div class="weui_cell">
+                <div class="weui_cell_hd">
+                    <label class="weui_label">客户名称：</label>
+                </div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input class="weui_input" required type="text" placeholder="用电客户全称" tips="客户全称不能为空"/>
+                </div>
+                <span class="f-red f20 rel" style="top:4px;">*</span>
+            </div>
+            <div class="weui_cell">
+                <div class="weui_cell_hd">
+                    <label class="weui_label">关系级别：</label>
+                </div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input class="weui_input" type="text" required placeholder="选择关系级别" emptyTips="请选择关系级别" id="relation" />
+                </div>
+                <span class="f-red f20 rel" style="top:4px;">*</span>
+            </div>
+            <div class="weui_cell">
+                <div class="weui_cell_hd">
+                    <label class="weui_label">预计电量：</label>
+                </div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input class="weui_input" type="text" required emptyTips="预计电量不能为空" placeholder="请手动输入" />
+                </div>
+                <span class="f-gray f16 m-r10">kwh</span>
+                <span class="f-red f20 rel" style="top:4px;">*</span>
+            </div>
+<!--             <div class="weui_cell">
+                <div class="weui_cell_hd">
+                    <label class="weui_label">起始日期：</label>
+                </div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input id="dateS" class="weui_input" type="text" placeholder="起始日期" />
+                </div>
+            </div> -->
+            <div class="weui_cell">
+                <div class="weui_cell_hd">
+                    <label class="weui_label">结束日期：</label>
+                </div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input id="dateE" class="weui_input" type="text" placeholder="结束日期" />
+                </div>
+            </div>
+        </div>
+        <!-- 发布人联系方式 -->
+        <div class="weui_cells_title">我的联系方式</div>
+        <div class="weui_cells weui_cells_form">
+            <div class="weui_cell">
+                <div class="weui_cell_hd">
+                    <label class="weui_label">真实姓名：</label>
+                </div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input class="weui_input" type="text" placeholder="您的全名" />
+                </div>
+            </div>
+            <div class="weui_cell">
+                <div class="weui_cell_hd">
+                    <label class="weui_label">手机号码：</label>
+                </div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input class="weui_input" type="text" required pattern="^1[3|4|5|8][0-9]\d{8}$" placeholder="填写常用号码" emptyTips="手机号码不能为空" tips="手机号码格式不正确"/>
+                </div>
+                <span class="f-red f20 rel" style="top:4px;">*</span>
+            </div>
+        </div>
+
+        <!-- 上传图片
+        <div class="weui_cell weui_cell1 bg-white">
+            <div class="weui_uploader">
+                <div class="weui_uploader_hd weui_cell">
+                    <div class="weui_cell_bd weui_cell_primary">上传图片：</div>
+                </div>
+                <div class="weui_uploader_bd">
+                    <ul class="weui_uploader_files" id='img2x'>
+                    </ul>
+                    <div class="weui_uploader_input_wrp">
+                        <input class="weui_uploader_input" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" onchange="previewImage1(this)" multiple />
+                    </div>
+                </div>
+            </div>
+        </div>   -->
+
+        <!-- 备注信息  -->
+        <div class="weui_cells_title">备注信息：</div>
+        <div class="weui_cells weui_cells_form">
+            <div class="weui_cell">
+                <div class="weui_cell_bd weui_cell_primary">
+                    <textarea id="textarea" class="weui_textarea" placeholder="请输入文本" rows="3"></textarea>
+                    <div class="weui_textarea_counter"><span id='count'>0</span>/<span id='count_max'>200</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="weui_btn_area">
+            <a class="weui_btn weui_btn_primary bg-green" href="javascript:" id="formSubmitBtn">确认发布</a>
+        </div>
+    </form>
+    <script>
+
+    /**
+        // 预览上传图片
+        function previewImage1(file) {
+            var MAXWIDTH = 100;
+            var MAXHEIGHT = 200;
+            for (var i = 0; i < file.files.length; i++) {
+
+                if (file.files && file.files[i]) {
+                    var reader = new FileReader();
+                    reader.onload = function(evt) {
+                        $('#img2x').append('<li class="weui_uploader_file" style="background-image:url(' + evt.target.result + ')"></li>');
+                    };
+                    reader.readAsDataURL(file.files[i]);
+                }
+
+            }
+
+        }
+        */
+
+    $(function() {
+        // 客户关系级别
+        $("#relation").select({
+            title: "请选择关系级别",
+            autoClose: true,
+            items: ['高层关系', '中层关系','普通关系'],
+            onChange: function(d) {
+                $('#relation').val(d.values);
+            }
+        });
+
+        // 日期选择
+        // $("#dateS").datetimePicker({
+        //     title: "选择起始日期",
+        //     m: 1
+        // });
+        $("#dateE").datetimePicker({
+            title: "选择结束日期",
+            m: 1
+        });
+
+
+        // 计算备注字数
+        var max = $('#count_max').text();
+        $('#textarea').on('input', function() {
+            var text = $(this).val();
+            var len = text.length;
+            $('#count').text(len);
+            if (len > max) {
+                $(this).closest('.weui_cell').addClass('weui_cell_warn');
+            } else {
+                $(this).closest('.weui_cell').removeClass('weui_cell_warn');
+            }
+        });
+
+         // onclick="$.toptips('我是黑色提示','info')"
+
+    // 表单验证
+    var $form = $("#form");
+    $form.form();
+
+    $("#formSubmitBtn").on("click", function() {
+        $form.validate(function(error) {
+            if (error) {
+                console.log(error.msg)
+            } else {
+                $.toast("操作成功");
+                setTimeout(function() {
+                  window.location.href="../deals/publish-view.html"
+                }, 1000)
+            }
+        });
+
+    });
+
+
+    })
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>人人售电-掌上电力交易平台</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <link rel="stylesheet" href="../../assets/css/weuix.min.css">
+    <link rel="stylesheet" href="../../assets/css/common.css">
+    <script src="../../assets/js/zepto.min.js"></script>
+</head>
+
+<body ontouchstart style="background-color: #f8f8f8;">
+    <div class="weui_btn_primary weui-header ">
+        <div class="weui-header-left">
+            <a href="javascript:history.back();" class="icon icon-109 f-white"></a>
+        </div>
+        <h1 class="weui-header-title">新闻详情</h1>
+    </div>
+    <div class="weui-weixin">
+        <div class="weui-weixin-ui">
+            <!--页面开始-->
+            <div class="weui-weixin-page">
+                <h2 class="weui-weixin-title">价改 还要啃哪些“硬骨头” ？</h2>
+                <div class="weui-weixin-info">
+                    <!--meta-->
+                    <span class="weui-weixin-em">最新消息</span>
+                    <em class="weui-weixin-em">2017-06-14</em>
+                    <em class="weui-weixin-em">沉默的羔羊</em>
+                </div>
+                <!--meta结束-->
+                <div class="weui-weixin-img">
+                    <!--图片开始-->
+                    <img src="../../assets/images/notice/notice1.jpg">
+                </div>
+                <!--图片结束-->
+                <div class="weui-weixin-content indent">
+                    <!--内容-->
+                    <p>农产品、电力、天然气、药品和医疗服务、铁路运输等最难“啃”的领域取得重大突破。从一盒火柴涨价都要国务院开会讨论，到97%左右的商品和服务价格都由市场说了算，30多年的价格改革让我们告别了高度集中的计划价格体制，基本建立了市场决定价格的机制。尤其近五年来，80多项政府定价项目陆续放开，政府定价的范围目前主要限定在重要公用事业、公益性服务、网络型自然垄断环节。农产品、电力、天然气、药品和医疗服务、铁路运输等最难“啃”的领域取得了重大突破，新一轮价格改革在价格改革的历史坐标中刻上了前所未有的标志性意义。</p>
+                    <p>尤其近五年来，80多项政府定价项目陆续放开，政府定价的范围目前主要限定在重要公用事业、公益性服务、网络型自然垄断环节。农产品、电力、天然气、药品和医疗服务、铁路运输等最难“啃”的领域取得了重大突破，新一轮价格改革在价格改革的历史坐标中刻上了前所未有的标志性意义。</p>
+                </div>
+                <!--内容结束-->
+                <div class="weui-weixin-tools">
+                    <!--工具条-->
+                    <div class="weui-weixin-read">
+                      阅读 <span id="readnum" class="m-r10">981</span>
+                      <span class="weui-weixin-read right">
+                        <i class="weui-weixin-zan"></i><span class="weui-weixin-num">59</span>
+                      </span>
+                    </div>
+                </div>
+                <!--工具条结束-->
+                <script>
+                $(function() {
+                    $("img").addClass('weixin');
+                    $('.weui-weixin-zan').click(function() {
+                        if ($(this).hasClass('zaned')) {
+                            $(this).removeClass('zaned');
+                            var val = $(this).next().html();
+                            if (parseInt(val) == 0) {
+                                var i = 1;
+                            } else {
+                                var i = parseInt(val) - 1;
+                            }
+                            $(this).next().html(i);
+
+                        } else {
+                            $(this).addClass('zaned');
+                            var val = $(this).next().html();
+                            $(this).next().html(parseInt(val) + 1);
+                            //ajax操作
+                        }
+
+                    });
+
+                });
+                </script>
+            </div>
+            <!--页面结束-->
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,361 @@
+/**基础类
+ * 根字体
+* 分割线/加载更多
+* flex布局（带多种对其方式）
+*/
+@font-face {font-family: "iconfont";
+  src: url('../fonts/iconfont.ttf?t=1499412536218') format('truetype'); /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+}
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-dh-yes:before { content: "\e519"; }
+.icon-pz-yes:before { content: "\e51a"; }
+.icon-sm-yes:before { content: "\e51b"; }
+.icon-hz-yes:before { content: "\e51c"; }
+@font-face {
+ font-family: 'OptimusPrinceps';
+ src: url('../fonts/OptimusPrinceps.ttf');
+ src: local('../font/OptimusPrinceps.ttf'),
+              local('../font/OptimusPrinceps.ttf'),
+              url('../fonts/OptimusPrinceps.ttf') format('woff'),
+              url('../fonts/OptimusPrinceps.ttf') format('truetype'),
+              url('../fonts/OptimusPrinceps.ttf') format('svg');
+}
+.f-number{
+    font-family: OptimusPrinceps;
+    font-style: italic;
+}
+.f-dark{
+    color: #77a559 !important;
+}
+.f-light{
+    color: #e2e2e2 !important;
+}
+/*基础类*/
+    .page-bg{
+      background-color: #f8f8f8;
+    }
+    .page-bg-dark{
+      background-color: #3C4555;
+    }
+    .page-lgreen{
+        background-image: -webkit-linear-gradient(bottom, #f3f4f6 0%, #eaf3f8 100%);
+        background-image: -o-linear-gradient(bottom, #f3f4f6 0%, #eaf3f8 100%);
+        background-image: linear-gradient(to top, #f3f4f6 0%, #eaf3f8 100%);
+    }
+    .weui-header-left.header-left{
+      padding: 13px 18px;left: 0;top: 0
+    }
+    .weui-header-right.header-right{
+      padding: 13px 18px;right: 0;top: 0
+    }
+    .list-img{
+      width: 60px;
+      height: 60px;
+    }
+    .m-r5{
+      margin-right: 5px;
+    }
+    .m-r10{
+        margin-right: 10px;
+    }
+    .m-t5{
+      margin-top: 5px;
+    }
+    .m-t10{
+      margin-top: 10px;
+    }
+    .m-t15{
+      margin-top: 15px;
+    }
+    .m-t25{
+      margin-top: 25px;
+    }
+    .m-t20{
+      margin-top: 20px;
+    }
+    .p-b10{
+      padding-bottom:10px;
+    }
+    .w-40p {
+        width: 40%;
+    }
+    .pd-tb15 {
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+    .bg-white {
+        background-color: white;
+    }
+    .division{
+      height: 10px;
+      background-color: #f8f8f8;
+    }
+
+
+/*分割线/加载更多*/
+  .loadmore {
+      font-size: 14px;
+      line-height: 1.6em;
+      margin: 1.5em auto;
+      text-align: center;
+      width: 65%;
+  }
+  .loadmore-tips {
+      display: inline-block;
+      vertical-align: middle;
+  }
+  .loadmore-line {
+      border-top: 1px solid #e5e5e5;
+      margin-top: 2.4em;
+  }
+  .loadmore-line .loadmore-tips {
+      background-color: #f8f8f8;
+      color: #999999;
+      padding: 0 0.55em;
+      position: relative;
+      top: -0.9em;
+  }
+  .loadmore-dot .loadmore-tips {
+      padding: 0 0.16em;
+  }
+  .loadmore-dot .loadmore-tips::before {
+      background-color: #999;
+      border-radius: 50%;
+      content: " ";
+      display: inline-block;
+      height: 4px;
+      position: relative;
+      top: -0.16em;
+      vertical-align: 0;
+      width: 4px;
+  }
+
+
+/*flex布局*/
+  .flex-col,
+  .flex-row {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-flex-wrap: wrap;
+              flex-wrap: wrap;
+  }
+  .flex-col:before,
+  .flex-row:before,
+  .flex-col:after,
+  .flex-row:after {
+      content: " ";
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      box-sizing: border-box;
+  }
+  .flex-col:after,
+  .flex-row:after {
+    clear: both;
+  }
+  .flex-col {
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      -webkit-flex-direction: row;
+              flex-direction: row;
+  }
+  .flex-row {
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -webkit-flex-direction: column;
+              flex-direction: column;
+  }
+  /*flex栅格*/
+  .flex-item-1 {
+      float: left;
+      width: 8.33333333%;
+  }
+  .flex-offset-1 {
+      margin-left: 8.33333333%;
+  }
+  .flex-item-2 {
+      float: left;
+      width: 16.66666667%;
+  }
+  .flex-offset-2 {
+      margin-left: 16.66666667%;
+  }
+  .flex-item-3 {
+      float: left;
+      width: 25%;
+  }
+  .flex-offset-3 {
+      margin-left: 25%;
+  }
+  .flex-item-4 {
+      float: left;
+      width: 33.33333333%;
+  }
+  .flex-offset-4 {
+      margin-left: 33.33333333%;
+  }
+  .flex-item-5 {
+      float: left;
+      width: 41.66666667%;
+  }
+  .flex-offset-5 {
+      margin-left: 41.66666667%;
+  }
+  .flex-item-6 {
+      float: left;
+      width: 50%;
+  }
+  .flex-offset-6 {
+      margin-left: 50%;
+  }
+  .flex-item-7 {
+      float: left;
+      width: 58.33333333%;
+  }
+  .flex-offset-7 {
+      margin-left: 58.33333333%;
+  }
+  .flex-item-8 {
+      float: left;
+      width: 66.66666667%;
+  }
+  .flex-offset-8 {
+      margin-left: 66.66666667%;
+  }
+  .flex-item-9 {
+      float: left;
+      width: 75%;
+  }
+  .flex-offset-9 {
+      margin-left: 75%;
+  }
+  .flex-item-10 {
+      float: left;
+      width: 83.33333333%;
+  }
+  .flex-offset-10 {
+      margin-left: 83.33333333%;
+  }
+  .flex-order-10 {
+      -webkit-box-ordinal-group: 11;
+      -webkit-order: 10;
+              order: 10;
+  }
+  .flex-item-11 {
+      float: left;
+      width: 91.66666667%;
+  }
+  .flex-offset-11 {
+      margin-left: 91.66666667%;
+  }
+  .flex-item-12 {
+      float: left;
+      width: 100%;
+  }
+  .flex-offset-12 {
+      margin-left: 100%;
+  }
+  .flex-auto {
+      float: left;
+      -webkit-box-flex: 1;
+      -webkit-flex-grow: 1;
+              flex-grow: 1;
+  }
+  .flex-between {
+      -webkit-box-pack: justify;
+      -webkit-justify-content: space-between;
+              justify-content: space-between;
+  }
+  /*对齐*/
+  .flex-col.flex-left {
+      -webkit-box-pack: start;
+      -webkit-justify-content: flex-start;
+              justify-content: flex-start;
+  }
+  .flex-col.flex-right {
+      -webkit-box-pack: end;
+      -webkit-justify-content: flex-end;
+              justify-content: flex-end;
+  }
+  .flex-col.flex-top {
+      -webkit-box-align: start;
+      -webkit-align-items: flex-start;
+              align-items: flex-start;
+  }
+  .flex-col.flex-bottom {
+      -webkit-box-align: end;
+      -webkit-align-items: flex-end;
+              align-items: flex-end;
+  }
+  .flex-col.flex-center {
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+              justify-content: center;
+  }
+  .flex-col.flex-middle {
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+              align-items: center;
+  }
+  .flex-row.flex-left {
+      -webkit-box-align: start;
+      -webkit-align-items: flex-start;
+              align-items: flex-start;
+  }
+  .flex-row.flex-right {
+      -webkit-box-align: end;
+      -webkit-align-items: flex-end;
+              align-items: flex-end;
+  }
+  .flex-row.flex-top {
+      -webkit-box-pack: start;
+      -webkit-justify-content: flex-start;
+              justify-content: flex-start;
+  }
+  .flex-row.flex-bottom {
+      -webkit-box-pack: end;
+      -webkit-justify-content: flex-end;
+              justify-content: flex-end;
+  }
+  .flex-row.flex-center {
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+              align-items: center;
+  }
+  .flex-row.flex-middle {
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+              justify-content: center;
+  }
+  [class*=flex-item-]{
+      position: relative;
+  }
+  [class*=flex-auto].flex-left {
+      margin-right: auto;
+  }
+  [class*=flex-auto].flex-right {
+      margin-left: auto;
+  }
+  [class*=flex-auto].flex-top {
+      margin-bottom: auto;
+  }
+  [class*=flex-auto].flex-bottom {
+      margin-top: auto;
+  }
+  [class*=flex-auto].flex-center {
+      margin-left: auto;
+      margin-right: auto;
+  }
+  [class*=flex-auto].flex-middle {
+      margin-top: auto;
+      margin-bottom: auto;
+  }
+
+/* card组件 */

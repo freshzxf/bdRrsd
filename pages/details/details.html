@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>人人售电-掌上电力交易平台</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <link rel="stylesheet" href="../../assets/css/weuix.min.css">
+    <script src="../../assets/js/zepto.min.js"></script>
+    <script src="../../assets/js/lib/swipe.js"></script>
+    <style>
+    .weui-form-preview-btn{
+        overflow: hidden;
+    }
+    .weui-mark-lt {
+        color: #fff;
+        font-size: 12px !important;
+        height: 20px;
+        line-height: 20px !important;
+        text-align: center;
+        transform: rotate(-45deg);
+        width: 100px;
+        position: absolute;
+        z-index: 1;
+        left: -28px;
+        top: 15px;
+    }
+    .weui-form-preview-hd::after{
+        left: 0;
+    }
+    /*焦点图的小点点行高*/
+    .dot{
+        line-height: 1.6;
+    }
+    </style>
+</head>
+
+<body ontouchstart class="page-bg">
+    <div class="weui_btn_primary weui-header ">
+        <div class="weui-header-left">
+            <a href="javascript:history.back();" class="icon icon-109 f-white"></a>
+        </div>
+        <h1 class="weui-header-title">悬赏详情</h1>
+    </div>
+    <div class="weui-form-preview">
+        <div class="weui-form-preview-hd bs" style="padding-bottom: 0">
+            <div class="slide" id="slide">
+                <ul>
+                    <li>
+                        <a href="#">
+                            <img src="../../assets/images/notice/fj.png" alt="">
+                        </a>
+                    </li>
+<!--                     <li>
+                        <a href="#">
+                            <img src="images/notice/fj.png" alt="">
+                        </a>
+                    </li> -->
+                </ul>
+<!--                 <div class="dot">
+                    <span></span>
+                    <span></span>
+                </div> -->
+            </div>
+            <p>
+                <label class="weui-form-preview-label">发布单位</label>
+                <span>江西丰锦电力集团</span>
+            </p>
+        </div>
+        <div class="weui-form-preview-bd">
+            <p>
+                <label class="weui-form-preview-label">委托售电量</label>
+                <span class="weui-form-preview-value">100,000 kwh</span>
+            </p>
+            <p>
+                <label class="weui-form-preview-label">悬赏金额</label>
+                <span class="weui-form-preview-value">2000 ¥</span>
+            </p>
+            <p>
+                <label class="weui-form-preview-label">联系电话</label>
+                <span class="weui-form-preview-value">13879383838</span>
+            </p>
+            <p>
+                <label class="weui-form-preview-label">企业地址</label>
+                <span class="weui-form-preview-value">江西省南昌市</span>
+            </p>
+            <p>
+                <label class="weui-form-preview-label">备注信息</label>
+                <span class="weui-form-preview-value">请于2017年8月之前完成签约，过期作废</span>
+            </p>
+            <p>
+                <label class="weui-form-preview-label">发布时间</label>
+                <span class="weui-form-preview-value">2017/05/28</span>
+            </p>
+        </div>
+        <div class="weui-form-preview-ft">
+            <a class="weui-form-preview-btn f-green" href="javascript:" id="sc">我要收藏</a>
+            <a class="weui-form-preview-btn f-green" href="javascript:" id="sq">我要申请</a>
+            <a class="weui-form-preview-btn weui-form-preview-btn-primary" href="../../index.html">返回首页</a>
+        </div>
+    </div>
+    <script>
+        $(function(){
+
+            // 焦点图
+            $('#slide').swipeSlide({
+                autoSwipe: true, //自动切换默认是
+                speed: 3000, //速度默认4000
+                continuousScroll: true, //默认否
+                transitionType: 'cubic-bezier(0.22, 0.69, 0.72, 0.88)', //过渡动画linear/ease/ease-in/ease-out/ease-in-out/cubic-bezier
+                lazyLoad: true, //懒加载默认否
+                firstCallback: function(i, sum, me) {
+                    me.find('.dot').children().first().addClass('cur');
+                },
+                callback: function(i, sum, me) {
+                    me.find('.dot').children().eq(i).addClass('cur').siblings().removeClass('cur');
+                }
+            });
+
+            // 收藏事件
+            $('#sc').click(function(){
+                $.showLoading();
+                setTimeout(function() {
+                    $.hideLoading();
+                    if($('#sc').html() == "取消收藏"){
+                        $('#sc').html('我要收藏');
+                        $('.weui-mark-lt').remove();
+                        $.toast('已取消收藏');
+                    }else{
+                        $('#sc').html('取消收藏');
+                        $.toast('收藏成功');
+                        $('<span class="weui-mark-lt bg-orange">已收藏</span>').appendTo($(".weui-form-preview-bd"));
+                    }
+                }, 100)
+            });
+
+            // 申请事件
+            $('#sq').click(function(){
+                $.showLoading();
+                setTimeout(function() {
+                    $.hideLoading();
+                    $('.weui-mark-lt').remove();
+                    $('#sq').remove();
+                    $('#sc').remove();
+                    $('<span class="weui-mark-lt bg-green">已申请</span>').appendTo($(".weui-form-preview-bd"));
+                    $.alert("申请成功，请耐心等待审核", "提示");
+                }, 1000)
+            })
+        })
+    </script>
+</body>
+</html>

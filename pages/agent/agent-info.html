@@ -1,0 +1,155 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>人人售电-掌上电力交易平台</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <link rel="stylesheet" href="../../assets/css/weuix.min.css">
+    <link rel="stylesheet" href="../../assets/css/common.css">
+    <script src="../../assets/js/zepto.min.js"></script>
+    <script src="../../assets/js/lib/swipe.js"></script>
+    <style>
+        .lev{
+            width: 65px;height: 30px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin: auto;
+            text-align: right;
+            font-weight: bold;
+            position: relative;
+        }
+        .llev{
+            background-image: url(../../assets/images/level/llev.png);:
+        }
+
+        .hlev{
+            background-image: url(../../assets/images/level/hlev.png);:
+        }
+        .lev .f-number{
+            position: absolute;
+            right: 6px;
+            bottom: 2px;
+        }
+        .weui-form-preview-btn{
+            overflow: hidden;
+        }
+        .weui-mark-lt {
+            color: #fff;
+            font-size: 12px !important;
+            height: 20px;
+            line-height: 20px !important;
+            text-align: center;
+            transform: rotate(-45deg);
+            width: 100px;
+            position: absolute;
+            left: -28px;
+            top: 15px;
+        }
+        .weui-form-preview-hd::after{
+            left: 0;
+        }
+
+        /*焦点图的小点点行高*/
+        .dot{
+            line-height: 1.6;
+        }
+    </style>
+</head>
+
+<body ontouchstart class="page-bg">
+    <div class="weui_btn_primary weui-header ">
+        <div class="weui-header-left">
+            <a href="javascript:history.back();" class="icon icon-109 f-white"></a>
+        </div>
+        <h1 class="weui-header-title">经纪信息</h1>
+    </div>
+    <div class="weui-form-preview">
+        <div class="weui-form-preview-hd bs" style="padding-bottom: 0">
+<!--             <div>
+                <img class="img-max center" style="max-width: 100%;max-height: 320px;" src="images/avatar/avatar8.jpg" alt="">
+            </div> -->
+            <table style="width: 100%;vertical-align: middle;text-align: center;">
+                <tr>
+                    <td rowspan="2" class="weui-border-r"><img src="../../assets/images/avatar/avatar7.jpg" alt="" style="width: 60px;height: 60px;position: relative;top: 5px;border-radius: 50%"></td>
+                    <td>张丽</td>
+                </tr>
+                <tr>
+                    <td class="weui-border-t"><a href="tel:079183998565" class="f-green">13879383838</a></td>
+                </tr>
+            </table>
+        </div>
+        <div class="weui-form-preview-bd">
+            <p style="line-height: 39px;">
+                <label class="weui-form-preview-label">等级</label>
+                    <span class="f13 f-white lev hlev" style="display: inline-block;"><span class="f-number">LV 8</span></span>
+            </p>
+            <p>
+                <label class="weui-form-preview-label">认证状态</label>
+                <span class="weui-form-preview-value">
+                    <span class="iconfont icon-txrz m-r5 f-green"></span>
+                    <span class="iconfont icon-sfzrz m-r5 f-green"></span>
+                    <span class="iconfont icon-yyrz m-r5 f-light"></span>
+                    <span class="iconfont icon-hmrz m-r5 f-light"></span>
+                </span>
+            </p>
+            <p>
+                <label class="weui-form-preview-label">注册时间</label>
+                <span class="weui-form-preview-value">2017-05-18</span>
+            </p>
+            <p>
+                <label class="weui-form-preview-label">审核通过时间</label>
+                <span class="weui-form-preview-value">2017-5-20</span>
+            </p>
+            <p>
+                <label class="weui-form-preview-label">发布资源数</label>
+                <span class="weui-form-preview-value">2</span>
+            </p>
+            <p>
+                <label class="weui-form-preview-label">备注信息</label>
+                <span class="weui-form-preview-value">信任，是沟通的基础桥梁</span>
+            </p>
+        </div>
+        <div class="weui-form-preview-ft">
+            <a class="weui-form-preview-btn weui-form-preview-btn-primary" href="agent-source.html">Ta的资源</a>
+            <a class="weui-form-preview-btn weui-form-preview-btn-primary" href="../../index.html">返回首页</a>
+        </div>
+    </div>
+    <script>
+        $(function(){
+
+            /**  收藏事件
+            $('#sc').click(function(){
+                $.showLoading();
+                setTimeout(function() {
+                    $.hideLoading();
+                    if($('#sc').html() == "取消收藏"){
+                        $('#sc').html('我要收藏');
+                        $('.weui-mark-lt').remove();
+                        $.toast('已取消收藏');
+                    }else{
+                        $('#sc').html('取消收藏');
+                        $.toast('收藏成功');
+                        $('<span class="weui-mark-lt bg-orange">已收藏</span>').appendTo($(".weui-form-preview-bd"));
+                    }
+                }, 100)
+            });
+             */
+
+            /**  收藏事件
+            $('#sq').click(function(){
+                $.showLoading();
+                setTimeout(function() {
+                    $.hideLoading();
+                    $('.weui-mark-lt').remove();
+                    $('#sq').remove();
+                    $('#sc').remove();
+                    $('<span class="weui-mark-lt bg-green">已申请</span>').appendTo($(".weui-form-preview-bd"));
+                    $.alert("申请成功，请耐心等待审核", "提示");
+                }, 1000)
+            })
+            */
+        })
+    </script>
+</body>
+</html>

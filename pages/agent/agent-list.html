@@ -1,0 +1,328 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>人人售电-掌上电力交易平台</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <link rel="stylesheet" href="../../assets/css/weuix.min.css">
+    <link rel="stylesheet" href="../../assets/css/common.css">
+    <script src="../../assets/js/zepto.min.js"></script>
+    <script src="../../assets/js/lib/picker.js"></script>
+    <script src="../../assets/js/lib/select.js"></script>
+    <script src="../../assets/js/lib/picker-city.js"></script>
+    <style>
+        /*经纪人库*/
+          .city-input{
+            width: 100%;
+            border: 0;
+            outline: 0;
+            -webkit-appearance: none;
+            background-color: transparent;
+            font-size: inherit;
+            color: inherit;
+            height: 1.41176471em;
+            line-height: 1.41176471;
+          }
+          .city-arrow{
+            position: absolute;
+            right: 5%;
+            top: -0.2em;
+          }
+        .avatar-s{
+            width: 50px;height: 50px;
+            border-radius: 50%;
+            display: table;
+            margin: auto;
+        }
+        .lev{
+            width: 65px;height: 30px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin: auto;
+            text-align: right;
+            font-weight: bold;
+            position: relative;
+        }
+        .llev{
+            background-image: url(../../assets/images/level/llev.png);:
+        }
+
+        .hlev{
+            background-image: url(../../assets/images/level/hlev.png);:
+        }
+        .lev .f-number{
+            position: absolute;
+            right: 6px;
+            bottom: 2px;
+        }
+
+        .weui_panel_hd:after{
+            border-bottom: 0;
+        }
+        .weui_grid_icon {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto;
+        }
+        .weui_grids{
+            background-color: white;
+        }
+        .weui_grid:before{
+            border-right: 0;
+        }
+        /*解决模拟select层级不够*/
+
+        .weui-picker-overlay,
+        .weui-picker-container {
+            z-index: 2;
+        }
+        /*自动排序*/
+
+        .order {
+            color: gray;
+        }
+
+        .f-black {
+            color: black;
+        }
+
+        .order .icon {
+            display: inline-block;
+        }
+
+        .xz180 {
+            transform-origin: center center;
+            transform: rotate(180deg);
+            -webkit-transform: rotate(180deg);
+            -moz-transform: rotate(180deg);
+            -ms-transform: rotate(180deg);
+            -o-transform: rotate(180deg);
+            transition: transform 0.5s;
+            -moz-transition: -moz-transform 0.5s;
+            -moz-transition: -moz-transform 0.5s;
+            -o-transition: -o-transform 0.5s;
+            -ms-transition: -ms-transform 0.5s;
+        }
+
+        .xz0 {
+            transform-origin: center center;
+            transform: rotate(0deg);
+            -webkit-transform: rotate(0deg);
+            -moz-transform: rotate(0deg);
+            -ms-transform: rotate(0deg);
+            -o-transform: rotate(0deg);
+            transition: transform 0.5s;
+            -moz-transition: -moz-transform 0.5s;
+            -moz-transition: -moz-transform 0.5s;
+            -o-transition: -o-transform 0.5s;
+            -ms-transition: -ms-transform 0.5s;
+        }
+        .f-light{
+            color: #e2e2e2 !important;
+        }
+    </style>
+</head>
+
+<body ontouchstart style="background-color: #f8f8f8;">
+    <div class="weui_btn_primary weui-header ">
+        <div class="weui-header-left">
+            <a href="javascript:history.back();" class="icon icon-109 f-white"></a>
+        </div>
+        <h1 class="weui-header-title">经纪人库</h1>
+    </div>
+    <div class="weui_search_bar">
+        <input type="search" class="search-input" id='search' placeholder='姓名查找' style="box-sizing:content-box;outline: none" />
+        <button class="weui_btn weui_btn_mini weui_btn_primary"><i class="icon icon-4"></i></button>
+    </div>
+    <div class="flex-col tcenter bg-white f14" style="height: 40px;line-height: 40px;">
+        <div class="flex-item-6 order"><span class="m-r5">等级排序</span><span class="icon icon-35"></span></div>
+        <div class="flex-item-6 order weui-border-l"><span class="m-r5"><input class="weui_input tcenter" placeholder="江西南昌" type="text" id="ss" name=""></span></div>
+    </div>
+    <!-- 经纪人库 -->
+    <div class="weui_grids m-t10">
+        <a href="agent-info.html" class="weui_grid js_grid">
+            <div class="weui_grid_icon">
+                <img class="avatar-s" src="../../assets/images/avatar/avatar7.jpg" alt="">
+            </div>
+            <p class="weui_grid_label">
+                张丽
+                <div class="tcenter">
+                    <span class="iconfont icon-txrz f-green"></span>
+                    <span class="iconfont icon-sfzrz f-green"></span>
+                    <span class="iconfont icon-yyrz f-light"></span>
+                    <span class="iconfont icon-hmrz f-light"></span>
+                </div>
+                <div class="lev hlev">
+                    <span class="f13 f-white f-number">LV 8</span>
+                </div>
+            </p>
+        </a>
+        <a href="agent-info.html" class="weui_grid js_grid">
+            <div class="weui_grid_icon">
+                <img class="avatar-s" src="../../assets/images/avatar/avatar7.jpg" alt="">
+            </div>
+            <p class="weui_grid_label">
+                张丽
+                <div class="tcenter">
+                    <span class="iconfont icon-txrz f-green"></span>
+                    <span class="iconfont icon-sfzrz f-green"></span>
+                    <span class="iconfont icon-yyrz f-light"></span>
+                    <span class="iconfont icon-hmrz f-light"></span>
+                </div>
+                <div class="lev hlev">
+                    <span class="f13 f-white f-number">LV 8</span>
+                </div>
+            </p>
+        </a>
+        <a href="agent-info.html" class="weui_grid js_grid">
+            <div class="weui_grid_icon">
+                <img class="avatar-s" src="../../assets/images/avatar/avatar7.jpg" alt="">
+            </div>
+            <p class="weui_grid_label">
+                张丽
+                <div class="tcenter">
+                    <span class="iconfont icon-txrz f-green"></span>
+                    <span class="iconfont icon-sfzrz f-green"></span>
+                    <span class="iconfont icon-yyrz f-light"></span>
+                    <span class="iconfont icon-hmrz f-light"></span>
+                </div>
+                <div class="lev hlev">
+                    <span class="f13 f-white f-number">LV 8</span>
+                </div>
+            </p>
+        </a>
+        <a href="agent-info.html" class="weui_grid js_grid">
+            <div class="weui_grid_icon">
+                <img class="avatar-s" src="../../assets/images/avatar/avatar7.jpg" alt="">
+            </div>
+            <p class="weui_grid_label">
+                张丽
+                <div class="tcenter">
+                    <span class="iconfont icon-txrz f-green"></span>
+                    <span class="iconfont icon-sfzrz f-green"></span>
+                    <span class="iconfont icon-yyrz f-light"></span>
+                    <span class="iconfont icon-hmrz f-light"></span>
+                </div>
+                <div class="lev hlev">
+                    <span class="f13 f-white f-number">LV 8</span>
+                </div>
+            </p>
+        </a>
+        <a href="agent-info.html" class="weui_grid js_grid">
+            <div class="weui_grid_icon">
+                <img class="avatar-s" src="../../assets/images/avatar/avatar7.jpg" alt="">
+            </div>
+            <p class="weui_grid_label">
+                张丽
+                <div class="tcenter">
+                    <span class="iconfont icon-txrz f-green"></span>
+                    <span class="iconfont icon-sfzrz f-green"></span>
+                    <span class="iconfont icon-yyrz f-light"></span>
+                    <span class="iconfont icon-hmrz f-light"></span>
+                </div>
+                <div class="lev hlev">
+                    <span class="f13 f-white f-number">LV 8</span>
+                </div>
+            </p>
+        </a>
+        <a href="agent-info.html" class="weui_grid js_grid">
+            <div class="weui_grid_icon">
+                <img class="avatar-s" src="../../assets/images/avatar/avatar7.jpg" alt="">
+            </div>
+            <p class="weui_grid_label">
+                张丽
+                <div class="tcenter">
+                    <span class="iconfont icon-txrz f-green"></span>
+                    <span class="iconfont icon-sfzrz f-green"></span>
+                    <span class="iconfont icon-yyrz f-light"></span>
+                    <span class="iconfont icon-hmrz f-light"></span>
+                </div>
+                <div class="lev hlev">
+                    <span class="f13 f-white f-number">LV 8</span>
+                </div>
+            </p>
+        </a>
+        <a href="agent-info.html" class="weui_grid js_grid">
+            <div class="weui_grid_icon">
+                <img class="avatar-s" src="../../assets/images/avatar/avatar7.jpg" alt="">
+            </div>
+            <p class="weui_grid_label">
+                张丽
+                <div class="tcenter">
+                    <span class="iconfont icon-txrz f-green"></span>
+                    <span class="iconfont icon-sfzrz f-green"></span>
+                    <span class="iconfont icon-yyrz f-light"></span>
+                    <span class="iconfont icon-hmrz f-light"></span>
+                </div>
+                <div class="lev hlev">
+                    <span class="f13 f-white f-number">LV 8</span>
+                </div>
+            </p>
+        </a>
+        <a href="agent-info.html" class="weui_grid js_grid">
+            <div class="weui_grid_icon">
+                <img class="avatar-s" src="../../assets/images/avatar/avatar7.jpg" alt="">
+            </div>
+            <p class="weui_grid_label">
+                张丽
+                <div class="tcenter">
+                    <span class="iconfont icon-txrz f-green"></span>
+                    <span class="iconfont icon-sfzrz f-green"></span>
+                    <span class="iconfont icon-yyrz f-light"></span>
+                    <span class="iconfont icon-hmrz f-light"></span>
+                </div>
+                <div class="lev hlev">
+                    <span class="f13 f-white f-number">LV 8</span>
+                </div>
+            </p>
+        </a>
+        <a href="agent-info.html" class="weui_grid js_grid">
+            <div class="weui_grid_icon">
+                <img class="avatar-s" src="../../assets/images/avatar/avatar7.jpg" alt="">
+            </div>
+            <p class="weui_grid_label">
+                张丽
+                <div class="tcenter">
+                    <span class="iconfont icon-txrz f-green"></span>
+                    <span class="iconfont icon-sfzrz f-green"></span>
+                    <span class="iconfont icon-yyrz f-light"></span>
+                    <span class="iconfont icon-hmrz f-light"></span>
+                </div>
+                <div class="lev hlev">
+                    <span class="f13 f-white f-number">LV 8</span>
+                </div>
+            </p>
+        </a>
+
+
+    </div>
+
+    <script>
+    $(function() {
+
+        // 自动排序
+        $.each($('.order'), function(index, item) {
+            // console.log('item %d is: %s', index, item)
+            $(this).click(function() {
+                var icon = $(this).children('.icon');
+                $(this).addClass('f-black').siblings().removeClass('f-black');
+                if (icon.hasClass('xz180')) {
+                    icon.removeClass('xz180').addClass('xz0')
+                } else {
+                    icon.removeClass('xz0').addClass('xz180')
+                }
+            })
+        })
+
+        // 发布地区（省市）
+        $("#ss").cityPicker({
+            title: "选择省市",
+            showDistrict: false
+        });
+
+    });
+    </script>
+</body>
+
+</html>

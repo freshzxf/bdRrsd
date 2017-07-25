@@ -1,0 +1,584 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <link rel="stylesheet" href="assets/css/weuix.min.css">
+    <link rel="stylesheet" href="assets/css/common.css">
+    <script src="assets/js/zepto.min.js"></script>
+    <script src="assets/js/lib/picker.js"></script>
+    <script src="assets/js/lib/picker-city.js"></script>
+    <script src="assets/js/lib/countUp.min.js"></script>
+    <style>
+        /*水纹svg背景*/
+        .water {
+            position: absolute;
+            left: 0;
+            top: -30px;
+            height: 30px;
+            width: 100%;
+            z-index: 1;
+        }
+
+        .water-c {
+            position: relative;
+        }
+
+        @keyframes wave-animation-1 {
+            0% {
+                background-position: 0 top
+            }
+            100% {
+                background-position: 600px top
+            }
+        }
+
+        @keyframes wave-animation-2 {
+            0% {
+                background-position: 0 top
+            }
+            100% {
+                background-position: 600px top
+            }
+        }
+
+        .water-1 {
+            background: url(assets/images/water-1.svg) repeat-x;
+            background-size: 600px;
+            -webkit-animation: wave-animation-1 3.5s infinite linear;
+            animation: wave-animation-1 3.5s infinite linear;
+        }
+
+        .water-2 {
+            top: 5px;
+            background: url(assets/images/water-2.svg) repeat-x;
+            background-size: 600px;
+            -webkit-animation: wave-animation-2 6s infinite linear;
+            animation: wave-animation-2 6s infinite linear;
+        }
+
+        .water-1,
+        .water-2 {
+            position: absolute;
+            width: 100%;
+            height: 30px;
+        }
+
+
+        /*数字变动*/
+        .counter {
+            background-color: rgba(255, 255, 255, 0.8);
+            height: 90px;
+            margin-top: 20px;
+            box-sizing: border-box;
+            margin: 35px 5px 0;
+            position: relative;
+        }
+
+        .count-title {
+            color: #808080;
+            font-weight: normal;
+            margin-top: 10px;
+            margin-bottom: 0;
+            text-align: center;
+        }
+
+        .count-text {
+            font-size: 13px;
+            color: #808080;
+            font-weight: normal;
+            margin-top: 5px;
+            text-align: center;
+        }
+        .count-text.f-red{
+            margin-top: -4px;
+        }
+
+        /*经纪人库*/
+          .city-input{
+            width: 100%;
+            border: 0;
+            outline: 0;
+            position: relative;
+            z-index: 1;
+            -webkit-appearance: none;
+            background-color: transparent;
+            font-size: inherit;
+            color: inherit;
+            height: 1.41176471em;
+            line-height: 1.41176471;
+          }
+          .city-arrow{
+            position: absolute;
+            right: 2%;
+            top: -0.2em;
+            z-index: 0;
+          }
+        .weui-picker-overlay,
+        .weui-picker-container {
+            z-index: 2;
+        }
+        .avatar-s{
+            width: 50px;height: 50px;
+            border-radius: 50%;
+            display: table;
+            margin: auto;
+        }
+        .lev{
+            width: 65px;height: 30px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin: auto;
+            text-align: right;
+            font-weight: bold;
+            position: relative;
+        }
+        .llev{
+            background-image: url(assets/images/level/llev.png);:
+        }
+
+        .hlev{
+            background-image: url(assets/images/level/hlev.png);:
+        }
+        .lev .f-number{
+            position: absolute;
+            right: 6px;
+            bottom: 2px;
+        }
+
+        .weui_panel_hd:after{
+            border-bottom: 0;
+        }
+        .weui_grid_icon {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto;
+        }
+        .weui_grids{
+            background-color: white;
+        }
+        .weui_grid:before{
+            border-right: 0;
+        }
+        .weui_panel_access.bg-white a:before{
+            border-top: none;
+        }
+        /*清除经纪人库下面更多的顶部边框*/
+        .ft-bt-0:before{
+            width: 0
+        }
+    </style>
+</head>
+<body ontouchstart class="page-bg">
+    <!-- 基本数据展示 -->
+    <div class="flex-col" style="background-color: #58CF57;height: 180px;">
+        <div class="flex-item-3">
+            <div class="counter radius">
+                <h2 class="timer count-title" id="agent">125</h2>
+                <p class="count-text f-red">人次</p>
+                <p class="count-text">已有经纪人</p>
+            </div>
+        </div>
+        <div class="flex-item-3">
+            <div class="counter radius">
+                <h2 class="timer count-title" id="source">1785</h2>
+                <p class="count-text f-red">mwh</p>
+                <p class="count-text">可售电量资源</p>
+            </div>
+        </div>
+        <div class="flex-item-3">
+            <div class="counter radius">
+                <h2 class="timer count-title" id="people">191</h2>
+                <p class="count-text f-red">人次</p>
+                <p class="count-text ">成交客户</p>
+            </div>
+        </div>
+        <div class="flex-item-3">
+            <div class="counter radius">
+                <h2 class="timer count-title" id="power">987</h2>
+                <p class="count-text f-red">mwh</p>
+                <p class="count-text ">成交电量</p>
+            </div>
+        </div>
+    </div>
+    <!-- 基本菜单 -->
+    <div class="weui-flex m-t10 rel bg-white tcenter p-b10">
+        <!--水纹svg-->
+        <div class="water">
+            <div class="water-c">
+                <div class="water-1"></div>
+                <div class="water-2"></div>
+            </div>
+        </div>
+        <a href="pages/self-space/publish.html" class="weui-flex-item rel" style="z-index: 2">
+            <div class="">
+                <img src="assets/images/menu/publish.svg" alt="" class="w-40p">
+            </div>
+            <p class="weui_grid_label f15">
+                发布资源
+            </p>
+        </a>
+        <a href="pages/lists/source.html" class="weui-flex-item weui-border-l rel" style="z-index: 2">
+            <div class="">
+                <img src="assets/images/menu/source.svg" alt="" class="w-40p">
+            </div>
+            <p class="weui_grid_label f15">
+                任务悬赏
+            </p>
+        </a>
+        <a href="pages/self-space/fill.html" class="weui-flex-item weui-border-l rel" style="z-index: 2">
+            <div class="">
+                <img src="assets/images/menu/self.svg" alt="" class="w-40p">
+            </div>
+            <p class="weui_grid_label f15">
+                注册经济人
+            </p>
+        </a>
+    </div>
+    <!-- 经纪人库 -->
+    <div class="weui_grids m-t10 weui_panel_access">
+        <div class="weui_panel_hd weui_panel_hd1">
+            <a href="" class="f-green"><span class="icon icon-99 f20 f-green m-r10 pulse animated"></span><span class="f16">经纪人库</span></a>
+            <div class="weui_cell_bd weui_cell_primary right tcenter rel" style="width: 40%">
+                <input id='ss' placeholder="江西南昌" readonly class="city-input tcenter" type="text"/><span class="icon icon-6 f-green city-arrow"></span>
+            </div>
+        </div>
+
+        <a href="pages/agent/agent-info-new.html" class="weui_grid js_grid">
+            <div class="weui_grid_icon">
+                <img class="avatar-s" src="assets/images/avatar/avatar7.jpg" alt="">
+            </div>
+            <p class="weui_grid_label">
+                张丽
+                <div class="tcenter">
+                    <span class="iconfont icon-sm-yes f-dark"></span>
+                    <span class="iconfont icon-dh-yes f-dark"></span>
+                    <span class="iconfont icon-pz-yes f-dark"></span>
+                    <span class="iconfont icon-hz-yes f-light"></span>
+                </div>
+                <div class="lev hlev">
+                    <span class="f13 f-white f-number">LV 8</span>
+                </div>
+            </p>
+        </a>
+        <a href="pages/agent/agent-info-new.html" class="weui_grid js_grid">
+            <div class="weui_grid_icon">
+                <img class="avatar-s" src="assets/images/avatar/avatar7.jpg" alt="">
+            </div>
+            <p class="weui_grid_label">
+                张丽
+                <div class="tcenter">
+                    <span class="iconfont icon-sm-yes f-dark"></span>
+                    <span class="iconfont icon-dh-yes f-dark"></span>
+                    <span class="iconfont icon-pz-yes f-dark"></span>
+                    <span class="iconfont icon-hz-yes f-light"></span>
+                </div>
+                <div class="lev hlev">
+                    <span class="f13 f-white f-number">LV 8</span>
+                </div>
+            </p>
+        </a>
+        <a href="pages/agent/agent-info-new.html" class="weui_grid js_grid">
+            <div class="weui_grid_icon">
+                <img class="avatar-s" src="assets/images/avatar/avatar7.jpg" alt="">
+            </div>
+            <p class="weui_grid_label">
+                张丽
+                <div class="tcenter">
+                    <span class="iconfont icon-sm-yes f-dark"></span>
+                    <span class="iconfont icon-dh-yes f-dark"></span>
+                    <span class="iconfont icon-pz-yes f-dark"></span>
+                    <span class="iconfont icon-hz-yes f-light"></span>
+                </div>
+                <div class="lev hlev">
+                    <span class="f13 f-white f-number">LV 8</span>
+                </div>
+            </p>
+        </a>
+        <a href="pages/agent/agent-info-new.html" class="weui_grid js_grid">
+            <div class="weui_grid_icon">
+                <img class="avatar-s" src="assets/images/avatar/avatar7.jpg" alt="">
+            </div>
+            <p class="weui_grid_label">
+                张丽
+                <div class="tcenter">
+                    <span class="iconfont icon-sm-yes f-dark"></span>
+                    <span class="iconfont icon-dh-yes f-dark"></span>
+                    <span class="iconfont icon-pz-yes f-dark"></span>
+                    <span class="iconfont icon-hz-yes f-light"></span>
+                </div>
+                <div class="lev hlev">
+                    <span class="f13 f-white f-number">LV 8</span>
+                </div>
+            </p>
+        </a>
+        <a href="pages/agent/agent-info-new.html" class="weui_grid js_grid">
+            <div class="weui_grid_icon">
+                <img class="avatar-s" src="assets/images/avatar/avatar7.jpg" alt="">
+            </div>
+            <p class="weui_grid_label">
+                张丽
+                <div class="tcenter">
+                    <span class="iconfont icon-sm-yes f-dark"></span>
+                    <span class="iconfont icon-dh-yes f-dark"></span>
+                    <span class="iconfont icon-pz-yes f-dark"></span>
+                    <span class="iconfont icon-hz-yes f-light"></span>
+                </div>
+                <div class="lev hlev">
+                    <span class="f13 f-white f-number">LV 8</span>
+                </div>
+            </p>
+        </a>
+        <a href="pages/agent/agent-info-new.html" class="weui_grid js_grid">
+            <div class="weui_grid_icon">
+                <img class="avatar-s" src="assets/images/avatar/avatar7.jpg" alt="">
+            </div>
+            <p class="weui_grid_label">
+                张丽
+                <div class="tcenter">
+                    <span class="iconfont icon-sm-yes f-dark"></span>
+                    <span class="iconfont icon-dh-yes f-dark"></span>
+                    <span class="iconfont icon-pz-yes f-dark"></span>
+                    <span class="iconfont icon-hz-yes f-light"></span>
+                </div>
+                <div class="lev hlev">
+                    <span class="f13 f-white f-number">LV 8</span>
+                </div>
+            </p>
+        </a>
+        <a href="pages/agent/agent-info-new.html" class="weui_grid js_grid">
+            <div class="weui_grid_icon">
+                <img class="avatar-s" src="assets/images/avatar/avatar7.jpg" alt="">
+            </div>
+            <p class="weui_grid_label">
+                张丽
+                <div class="tcenter">
+                    <span class="iconfont icon-sm-yes f-dark"></span>
+                    <span class="iconfont icon-dh-yes f-dark"></span>
+                    <span class="iconfont icon-pz-yes f-dark"></span>
+                    <span class="iconfont icon-hz-yes f-light"></span>
+                </div>
+                <div class="lev hlev">
+                    <span class="f13 f-white f-number">LV 8</span>
+                </div>
+            </p>
+        </a>
+        <a href="pages/agent/agent-info-new.html" class="weui_grid js_grid">
+            <div class="weui_grid_icon">
+                <img class="avatar-s" src="assets/images/avatar/avatar7.jpg" alt="">
+            </div>
+            <p class="weui_grid_label">
+                张丽
+                <div class="tcenter">
+                    <span class="iconfont icon-sm-yes f-dark"></span>
+                    <span class="iconfont icon-dh-yes f-dark"></span>
+                    <span class="iconfont icon-pz-yes f-dark"></span>
+                    <span class="iconfont icon-hz-yes f-light"></span>
+                </div>
+                <div class="lev hlev">
+                    <span class="f13 f-white f-number">LV 8</span>
+                </div>
+            </p>
+        </a>
+        <a href="pages/agent/agent-info-new.html" class="weui_grid js_grid">
+            <div class="weui_grid_icon">
+                <img class="avatar-s" src="assets/images/avatar/avatar7.jpg" alt="">
+            </div>
+            <p class="weui_grid_label">
+                张丽
+                <div class="tcenter">
+                    <span class="iconfont icon-sm-yes f-dark"></span>
+                    <span class="iconfont icon-dh-yes f-dark"></span>
+                    <span class="iconfont icon-pz-yes f-dark"></span>
+                    <span class="iconfont icon-hz-yes f-light"></span>
+                </div>
+                <div class="lev hlev">
+                    <span class="f13 f-white f-number">LV 8</span>
+                </div>
+            </p>
+        </a>
+
+    </div>
+    <div class="weui_panel_access bg-white">
+        <a class="weui_panel_ft ft-bt-0" href="pages/agent/agent-list.html">查看更多</a>
+    </div>
+    <!-- 最新购电客户资源 -->
+    <div class="weui_panel weui_panel_access">
+        <div class="weui_panel_hd">
+            <span class="icon icon-91 f20 f-green m-r10"></span><span class="f16">购电客户最新资源</span>
+            <div class="weui_cell_bd weui_cell_primary right tcenter rel" style="width: 40%">
+                <input id='ss1' placeholder="江西南昌" readonly class="city-input tcenter" type="text"/><span class="icon icon-6 f-green city-arrow"></span>
+            </div>
+        </div>
+        <div class="weui_panel_bd">
+            <a href="pages/deals/publish-view.html" class="weui_media_box weui_media_appmsg">
+                <div class="weui_media_hd">
+                    <img class="weui_media_appmsg_thumb list-img img-radius" src="assets/images/avatar/avatar7.jpg" alt="">
+                </div>
+                <div class="weui_media_bd">
+                    <h4 class="weui_media_title">预计购电量：<span class="f-red f-number">1200,00kwh</span></h4>
+                    <p class="weui_media_desc">人脉：恒大物业</p>
+                    <p class="weui_media_desc m-t5">经纪人：张丽<span class="right">2017-05-12</span></p>
+                </div>
+            </a>
+            <a href="pages/deals/publish-view.html" class="weui_media_box weui_media_appmsg">
+                <div class="weui_media_hd">
+                    <img class="weui_media_appmsg_thumb list-img img-radius" src="assets/images/avatar/avatar7.jpg" alt="">
+                </div>
+                <div class="weui_media_bd">
+                    <h4 class="weui_media_title">预计购电量：<span class="f-red f-number">1200,00kwh</span></h4>
+                    <p class="weui_media_desc">人脉：恒大物业</p>
+                    <p class="weui_media_desc m-t5">经纪人：张丽<span class="right">2017-05-12</span></p>
+                </div>
+            </a>
+            <a href="pages/deals/publish-view.html" class="weui_media_box weui_media_appmsg">
+                <div class="weui_media_hd">
+                    <img class="weui_media_appmsg_thumb list-img img-radius" src="assets/images/avatar/avatar7.jpg" alt="">
+                </div>
+                <div class="weui_media_bd">
+                    <h4 class="weui_media_title">预计购电量：<span class="f-red f-number">1200,00kwh</span></h4>
+                    <p class="weui_media_desc">人脉：恒大物业</p>
+                    <p class="weui_media_desc m-t5">经纪人：张丽<span class="right">2017-05-12</span></p>
+                </div>
+            </a>
+            <a class="weui_panel_ft" href="pages/agent/agent-source.html">查看更多</a>
+        </div>
+    </div>
+    <!-- 最新悬赏任务 -->
+    <div class="weui_panel weui_panel_access">
+        <div class="weui_panel_hd">
+            <span class="icon icon-2 f20 f-green m-r10"></span><span class="f16">售电公司最新悬赏</span>
+            <div class="weui_cell_bd weui_cell_primary right tcenter rel" style="width: 40%">
+                <input id='ss2' placeholder="江西南昌" readonly class="city-input tcenter" type="text"/><span class="icon icon-6 f-green city-arrow"></span>
+            </div>
+        </div>
+        <div class="weui_panel_bd">
+            <a href="pages/details/details.html" class="weui_media_box weui_media_appmsg">
+                <div class="weui_media_hd">
+                    <img class="weui_media_appmsg_thumb list-img img-radius" src="assets/images/logo/fjsd.png" alt="">
+                </div>
+                <div class="weui_media_bd">
+                    <h4 class="weui_media_title">售电量：<span class="f-red f-number">1200,00kwh</span></h4>
+                    <p class="weui_media_desc">企业名称：江西丰锦电力有限公司</p>
+                    <p class="weui_media_desc m-t5">悬赏金额：3000元<span class="right">2017-05-12</span></p>
+                </div>
+            </a>
+            <a href="pages/details/details-application.html" class="weui_media_box weui_media_appmsg">
+                <div class="weui_media_hd">
+                    <img class="weui_media_appmsg_thumb list-img" src="assets/images/logo/tndl.jpg" alt="">
+                </div>
+                <div class="weui_media_bd">
+                    <h4 class="weui_media_title">售电量：<span class="f-red f-number">1200,00kwh</span></h4>
+                    <p class="weui_media_desc">企业名称：江西泰宁电力科技有限公司</p>
+                    <p class="weui_media_desc m-t5">悬赏金额：3000元<span class="right">2017-05-12</span></p>
+                </div>
+            </a>
+            <a href="pages/details/details-favorited.html" class="weui_media_box weui_media_appmsg">
+                <div class="weui_media_hd">
+                    <img class="weui_media_appmsg_thumb list-img" src="assets/images/logo/exel.jpg" alt="">
+                </div>
+                <div class="weui_media_bd">
+                    <h4 class="weui_media_title">售电量：<span class="f-red f-number">1200,00kwh</span></h4>
+                    <p class="weui_media_desc">企业名称：江西EXEL</p>
+                    <p class="weui_media_desc m-t5">悬赏金额：3000元<span class="right">2017-05-12</span></p>
+                </div>
+            </a>
+            <a class="weui_panel_ft" href="pages/lists/source.html">查看更多</a>
+        </div>
+    </div>
+    <!-- 最新签单 -->
+    <div class="weui_panel weui_panel_access">
+        <div class="weui_panel_hd">
+            <span class="icon icon-67 f20 f-green m-r10"></span><span class="f16">最新签单</span>
+        </div>
+        <div class="weui_panel_bd f14" style="line-height: 30px;">
+            <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg flex-col tcenter">
+                <div class="flex-item-4"><div class="bg-green f-white">经纪人：张丽</div></div>
+                <div class="flex-item-8"><div class="bg-blue f-white -wrap">售电公司：江西丰锦电力有限公司</div></div>
+                <div class="flex-col" style="width: 100%">
+                    <dic class="flex-item-6 tleft">成交电量：<span class="f-red f-number">1200kwh</span></dic>
+                    <dic class="flex-item-6 tright">成交时间：<span class="f-red">2017-6-25</span></dic>
+                </div>
+            </a>
+            <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg flex-col tcenter">
+                <div class="flex-item-4"><div class="bg-green f-white">经纪人：张丽</div></div>
+                <div class="flex-item-8"><div class="bg-blue f-white -wrap">售电公司：江西丰锦电力有限公司</div></div>
+                <div class="flex-col" style="width: 100%">
+                    <dic class="flex-item-6 tleft">成交电量：<span class="f-red f-number">1200kwh</span></dic>
+                    <dic class="flex-item-6 tright">成交时间：<span class="f-red">2017-6-25</span></dic>
+                </div>
+            </a>
+            <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg flex-col tcenter">
+                <div class="flex-item-4"><div class="bg-green f-white">经纪人：张丽</div></div>
+                <div class="flex-item-8"><div class="bg-blue f-white -wrap">售电公司：江西丰锦电力有限公司</div></div>
+                <div class="flex-col" style="width: 100%">
+                    <dic class="flex-item-6 tleft">成交电量：<span class="f-red f-number">1200kwh</span></dic>
+                    <dic class="flex-item-6 tright">成交时间：<span class="f-red">2017-6-25</span></dic>
+                </div>
+            </a>
+            <a class="weui_panel_ft" href="pages/lists/deal-list.html">查看更多</a>
+        </div>
+    </div>
+    <!-- 热点政策 -->
+    <div class="weui_panel weui_panel_access">
+        <div class="weui_panel_hd">
+            <span class="icon icon-52 f20 f-green m-r10"></span><span class="f16">新闻动态</span>
+        </div>
+        <div class="weui_panel_bd">
+            <a href="pages/self-space/article.html" class="weui_media_box weui_media_appmsg">
+                <div class="weui_media_hd">
+                    <img class="weui_media_appmsg_thumb list-img" src="assets/images/news.jpg" alt="">
+                </div>
+                <div class="weui_media_bd">
+                    <h4 class="weui_media_title">价改 还要啃哪些“硬骨头” ？</h4>
+                    <p class="weui_media_desc">近日，关于电价的利好消息频传。电价附加费中，工业企业结构调整专项资金将被取消</p>
+                </div>
+            </a>
+            <a href="pages/self-space/article.html" class="weui_media_box weui_media_appmsg">
+                <div class="weui_media_hd">
+                    <img class="weui_media_appmsg_thumb list-img" src="assets/images/news.jpg" alt="">
+                </div>
+                <div class="weui_media_bd">
+                    <h4 class="weui_media_title">价改 还要啃哪些“硬骨头” ？</h4>
+                    <p class="weui_media_desc">近日，关于电价的利好消息频传。电价附加费中，工业企业结构调整专项资金将被取消</p>
+                </div>
+            </a>
+            <a href="pages/self-space/article.html" class="weui_media_box weui_media_appmsg">
+                <div class="weui_media_hd">
+                    <img class="weui_media_appmsg_thumb list-img" src="assets/images/news.jpg" alt="">
+                </div>
+                <div class="weui_media_bd">
+                    <h4 class="weui_media_title">价改 还要啃哪些“硬骨头” ？</h4>
+                    <p class="weui_media_desc">近日，关于电价的利好消息频传。电价附加费中，工业企业结构调整专项资金将被取消</p>
+                </div>
+            </a>
+            <a class="weui_panel_ft" href="pages/lists/list-news.html">查看更多</a>
+        </div>
+    </div>
+    <!-- 底部版权 -->
+    <div class="weui-footer m-t25">
+        <p class="weui-footer-links">
+            <a href="http://www.baidianxinxi.com" class="weui-footer-link">百电集团</a>
+        </p>
+        <p class="weui-footer__text">Copyright &copy; 2017-2020</p>
+    </div>
+    <script>
+        function countNumber(target,startVal,endVal,decimals,duration){
+            var demo = new CountUp(target, startVal, endVal, decimals, duration);
+            demo.start();
+        }
+        countNumber('agent',0, 125, 0, 2.5);
+        countNumber('source',0, 9873, 0.1, 2.5);
+        countNumber('people',0, 194, 0, 2.5);
+        countNumber('power',0, 1785, 0.1, 2.5);
+
+        $(function(){
+          $("#ss,#ss1").cityPicker({
+            title: "选择省市",
+            showDistrict: false
+          });
+        })
+    </script>
+</body>
+</html>
